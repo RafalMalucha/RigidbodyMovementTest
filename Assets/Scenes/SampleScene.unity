@@ -9324,6 +9324,10 @@ GameObject:
   - component: {fileID: 1097030226}
   - component: {fileID: 1097030227}
   - component: {fileID: 1097030228}
+  - component: {fileID: 1097030232}
+  - component: {fileID: 1097030231}
+  - component: {fileID: 1097030230}
+  - component: {fileID: 1097030229}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9373,6 +9377,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff82289a4d005242a18b33920a6822b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_JumpController
+--- !u!114 &1097030229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097030225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7f1d8308521a946b5e70ffa7c99271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_UseController
+--- !u!114 &1097030230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097030225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0e8c1fae4764249b1c0512f79b078e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_SlideController
+--- !u!114 &1097030231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097030225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e3fc04f470d924b820f2576fef4f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_DashController
+--- !u!114 &1097030232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097030225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f6f080e34daa4297f53972980713b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_AttackController
 --- !u!43 &1952737547
 Mesh:
   m_ObjectHideFlags: 0

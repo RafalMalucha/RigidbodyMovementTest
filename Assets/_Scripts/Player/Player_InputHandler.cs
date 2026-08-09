@@ -44,12 +44,14 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
+        //GameBootstrap.MessageBus.Publish(new Player_LookMessage(_look.ReadValue<Vector2>()));
+
         // Debug.Log(_move.ReadValue<Vector2>());
         // Debug.Log(_look.ReadValue<Vector2>());
 
         if (_attack.WasPressedThisFrame())
         {
-            Debug.Log("attack");
+            GameBootstrap.MessageBus.Publish(new Player_AttackMessage());
         }
 
         if (_jump.WasPressedThisFrame())
@@ -59,17 +61,17 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (_dash.WasPressedThisFrame())
         {
-            Debug.Log("dash");
+            GameBootstrap.MessageBus.Publish(new Player_DashMessage());
         }
 
         if (_slide.WasPressedThisFrame())
         {
-            Debug.Log("slide");
+            GameBootstrap.MessageBus.Publish(new Player_SlideMessage());
         }
 
         if (_use.WasPressedThisFrame())
         {
-            Debug.Log("use");
+            GameBootstrap.MessageBus.Publish(new Player_UseMessage());
         }
     }
 }
