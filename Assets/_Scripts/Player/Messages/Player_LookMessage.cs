@@ -7,6 +7,5 @@ public struct Player_LookMessage
     public Player_LookMessage(Vector2 lookDelta)
     {
         LookDelta = lookDelta;
-        Debug.Log(LookDelta);
     }
 }

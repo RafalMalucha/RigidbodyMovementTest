@@ -39,8 +39,6 @@ public class MessageBus
 
     public void Publish<T>(T message)
     {
-        Debug.Log(typeof(T) + " published");
-
         Type messageType = typeof(T);
 
         if (!_handlers.ContainsKey(messageType))
