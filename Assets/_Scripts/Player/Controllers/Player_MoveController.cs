@@ -5,6 +5,8 @@ public class Player_MoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
 
+    private Vector2 _moveInput;
+
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -13,16 +15,22 @@ public class Player_MoveController : MonoBehaviour
 
     void OnPlayerMoveMessageReceived(Player_MoveMessage message)
     {
-        Look(message.MoveInput);
+        _moveInput = message.MoveInput;
+        Debug.Log(_moveInput);
     }
 
-    void Look(Vector2 moveInput)
+    private void FixedUpdate()
     {
-        Vector3 movement = moveInput.y * transform.forward + moveInput.x * transform.right;
+        Move();
+    }
+
+    void Move()
+    {
+        Vector3 movement = _moveInput.y * transform.forward + _moveInput.x * transform.right;
 
         if (movement.magnitude > 1f)
             movement.Normalize();
 
-        _rigidbody.AddForce(100f * movement);
+        _rigidbody.AddForce(1000f * movement);
     }
 }

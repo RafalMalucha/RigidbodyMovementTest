@@ -1,29 +1,39 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Player_LookController : MonoBehaviour
 {
     [SerializeField] private Camera _playerCamera;
-    private float cameraRotationX = 0f;
+    [SerializeField] private Rigidbody _rigidbody;
+    private Vector2 _lookDelta;
+    private float _cameraRotationX = 0f;
 
     void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
     }
 
     void OnPlayerLookMessageReceived(Player_LookMessage message)
     {
-        Look(message.LookDelta);
+        _lookDelta = message.LookDelta;
     }
 
-    void Look(Vector2 lookDelta)
+    private void FixedUpdate()
     {
-        float hLook = lookDelta.x * Time.deltaTime * 25f;
-        float vLook = lookDelta.y * Time.deltaTime * 25f;
+        Look();
+    }
 
-        cameraRotationX -= vLook;
-        cameraRotationX = Mathf.Clamp(cameraRotationX, -90f, 90f);
+    void Look()
+    {
+        float hLook = _lookDelta.x * Time.fixedDeltaTime * 25f;
+        float vLook = _lookDelta.y * Time.fixedDeltaTime * 25f;
 
-        _playerCamera.transform.localRotation = Quaternion.Euler(cameraRotationX, 0f, 0f);
-        transform.Rotate(Vector3.up * hLook);
+        _cameraRotationX -= vLook;
+        _cameraRotationX = Mathf.Clamp(_cameraRotationX, -90f, 90f);
+
+        _playerCamera.transform.localRotation = Quaternion.Euler(_cameraRotationX, 0f, 0f);
+
+        _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(0f, hLook, 0f));
     }
 }
