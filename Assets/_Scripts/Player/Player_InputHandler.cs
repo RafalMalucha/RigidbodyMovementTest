@@ -44,12 +44,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log("dupa");
         GameBootstrap.MessageBus.Publish(new Player_LookMessage(_look.ReadValue<Vector2>()));
         GameBootstrap.MessageBus.Publish(new Player_MoveMessage(_move.ReadValue<Vector2>()));
-
-        // Debug.Log(_move.ReadValue<Vector2>());
-        // Debug.Log(_look.ReadValue<Vector2>());
 
         if (_attack.WasPressedThisFrame())
         {

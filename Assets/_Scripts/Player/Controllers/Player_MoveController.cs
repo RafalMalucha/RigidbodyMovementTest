@@ -36,7 +36,7 @@ public class Player_MoveController : MonoBehaviour
             _stateMovePenalty = 1f;
 
         if (_player_State == Player_State.Airborne)
-            _stateMovePenalty = 0.1f;
+            _stateMovePenalty = 0.25f;
     }
 
     private void FixedUpdate()
@@ -47,13 +47,19 @@ public class Player_MoveController : MonoBehaviour
     private void Move()
     {
         Vector3 movement = _moveInput.y * transform.forward + _moveInput.x * transform.right;
-        //Debug.Log(movement);
+        movement.y = 0f;
 
         if (movement.magnitude > 1f)
             movement.Normalize();
 
-        _rigidbody.AddForce(_stateMovePenalty * _moveSpeed * movement);
-        _rigidbody.linearVelocity = Vector3.ClampMagnitude(_rigidbody.linearVelocity, 15f);
-        //Debug.Log(_rigidbody.linearVelocity);
+        Vector3 horizontalForce = _stateMovePenalty * _moveSpeed * movement;
+        _rigidbody.AddForce(horizontalForce, ForceMode.Force);
+
+        Vector3 velocity = _rigidbody.linearVelocity;
+        Vector3 hVelocity = new Vector3(velocity.x, 0f, velocity.z);
+
+        hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
+
+        _rigidbody.linearVelocity = new Vector3(hVelocity.x, velocity.y, hVelocity.z);
     }
 }

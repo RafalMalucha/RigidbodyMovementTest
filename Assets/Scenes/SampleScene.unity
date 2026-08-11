@@ -10987,6 +10987,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e3fc04f470d924b820f2576fef4f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_DashController
+  _rigidbody: {fileID: 0}
+  _dashDuration: 0.1
+  _dashCooldown: 1
 --- !u!114 &1097030232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11026,7 +11029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_MoveController
   _rigidbody: {fileID: 0}
-  _moveSpeed: 500
+  _moveSpeed: 300
 --- !u!54 &1097030235
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11036,8 +11039,8 @@ Rigidbody:
   m_GameObject: {fileID: 1097030225}
   serializedVersion: 5
   m_Mass: 5
-  m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_LinearDamping: 0.1
+  m_AngularDamping: 0.25
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -11061,7 +11064,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097030225}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b09cbd9ab7ae5f24ead360011b03b351, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
