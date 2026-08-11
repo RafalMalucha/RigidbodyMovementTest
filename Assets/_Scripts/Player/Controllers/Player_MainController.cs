@@ -7,6 +7,8 @@ public class Player_MainController : MonoBehaviour
     [SerializeField] private float _playerGravity;
 
     private bool _isGrounded;
+    private Vector3 _boxCastOriginOffset = new Vector3(0f, 0.01f, 0f);
+    private Vector3 _boxCastHalfExtents = new Vector3(0.45f, 0.05f, 0.45f);
 
     void Awake()
     {
@@ -16,21 +18,37 @@ public class Player_MainController : MonoBehaviour
     void FixedUpdate()
     {
         _rigidbody.AddForce(Vector3.down * _playerGravity, ForceMode.Force);
+        GroundCheck();
     }
 
-    void Update()
+    private void GroundCheck()
     {
-        bool grounded = CheckIsGrounded();
+        bool grounded = CheckBoxIsGroundedCheck();
 
         if (grounded != _isGrounded)
         {
             _isGrounded = grounded;
-            GameBootstrap.MessageBus.Publish(new Player_IsGroundedMessage(grounded));
+            GameBootstrap.MessageBus.Publish(new Player_IsGroundedMessage(_isGrounded));
         }
     }
 
-    private bool CheckIsGrounded()
+    private bool CheckBoxIsGroundedCheck()
     {
-        return Physics.Raycast(transform.position + new Vector3(0f, 1.5f, 0f), Vector3.down, 1.51f, LayerMask.GetMask("Level"));
+        ExtDebug.DrawBoxCastBox(
+            transform.position + _boxCastOriginOffset,
+            _boxCastHalfExtents,
+            transform.rotation,
+            Vector3.down,
+            0.0f,
+            Color.green
+        );
+
+        return Physics.CheckBox(
+            transform.position + _boxCastOriginOffset,
+            _boxCastHalfExtents,
+            transform.rotation,
+            LayerMask.GetMask("Level")
+        );
     }
+
 }

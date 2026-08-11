@@ -6,7 +6,6 @@ public struct Player_IsGroundedMessage
 
     public Player_IsGroundedMessage(bool isGrounded)
     {
-        Debug.Log(isGrounded);
         IsGrounded = isGrounded;
     }
 }

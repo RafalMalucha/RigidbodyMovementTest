@@ -36,7 +36,6 @@ public class Player_JumpController : MonoBehaviour
         {
             _currenlyAvailableAirborneJumps = _extraAirborneJumps;
         }
-
     }
 
     private void Jump()
