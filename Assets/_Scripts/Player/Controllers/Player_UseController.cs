@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class Player_UseController : MonoBehaviour
 {
-    void Awake()
+    void OnEnable()
     {
         GameBootstrap.MessageBus.Subscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
+    }
+
+    void OnDisable()
+    {
+        GameBootstrap.MessageBus.Unsubscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
     }
 
     void OnPlayerUseMessageReceived(Player_UseMessage message)

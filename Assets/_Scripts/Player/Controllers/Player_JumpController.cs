@@ -11,12 +11,20 @@ public class Player_JumpController : MonoBehaviour
     private bool _isGrounded;
     private int _currenlyAvailableAirborneJumps;
 
-    void Awake()
+    void OnEnable()
     {
+        Debug.Log("jump controller enabled");
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+    }
+
+    void OnDisable()
+    {
+        GameBootstrap.MessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
+        GameBootstrap.MessageBus.Unsubscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
+        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerJumpMessageReceived(Player_JumpMessage message)

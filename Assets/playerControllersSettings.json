@@ -1,0 +1,17 @@
+{
+  "controllersSettings":
+  [
+    {
+      "controllerName": "Player_LookController",
+      "isActive": true
+    },
+    {
+      "controllerName": "Player_MoveController",
+      "isActive": true
+    },
+    {
+      "controllerName": "Player_JumpController",
+      "isActive": true
+    }
+  ]
+}

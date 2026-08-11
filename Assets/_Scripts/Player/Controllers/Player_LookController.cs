@@ -11,7 +11,16 @@ public class Player_LookController : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
         GameBootstrap.MessageBus.Subscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
+    }
+
+    void OnDisable()
+    {
+        GameBootstrap.MessageBus.Unsubscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
     }
 
     void OnPlayerLookMessageReceived(Player_LookMessage message)

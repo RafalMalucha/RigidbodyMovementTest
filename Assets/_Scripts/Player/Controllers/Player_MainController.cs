@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player_MainController : MonoBehaviour
@@ -8,10 +9,21 @@ public class Player_MainController : MonoBehaviour
 
     private bool _isGrounded;
     private Vector3 _boxCastOriginOffset = new Vector3(0f, 0.01f, 0f);
-    private Vector3 _boxCastHalfExtents = new Vector3(0.45f, 0.05f, 0.45f);
+    private Vector3 _boxCastHalfExtents = new Vector3(0.5f, 0.05f, 0.5f);
 
     void Awake()
     {
+        foreach(PlayerControllerSettings setting in GameBootstrap.PlayerControllersSettings.controllersSettings)
+        {
+            Type controllerType = Type.GetType(setting.controllerName);
+            Component component = GetComponent(controllerType);
+
+            if (component is Behaviour behaviour)
+            {
+                behaviour.enabled = setting.isActive;
+            }
+
+        }
         _rigidbody = GetComponent<Rigidbody>();
     }
 

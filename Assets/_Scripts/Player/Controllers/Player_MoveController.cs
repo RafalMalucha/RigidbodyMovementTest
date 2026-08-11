@@ -8,13 +8,19 @@ public class Player_MoveController : MonoBehaviour
 
     private Player_State _player_State;
     private Vector2 _moveInput;
-    private float _stateMovePenalty;
+    private float _stateMovePenalty = 1f;
 
-    void Awake()
+    void OnEnable()
     {
+        Debug.Log("move controller enabled");
         _rigidbody = GetComponent<Rigidbody>();
-        GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+    }
+
+    void OnDisable()
+    {
+        GameBootstrap.MessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
     }
 
     void OnPlayerMoveMessageReceived(Player_MoveMessage message)
