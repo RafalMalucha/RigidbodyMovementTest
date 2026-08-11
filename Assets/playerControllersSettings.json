@@ -12,6 +12,22 @@
     {
       "controllerName": "Player_JumpController",
       "isActive": true
+    },
+    {
+      "controllerName": "Player_AttackController",
+      "isActive": true
+    },
+    {
+      "controllerName": "Player_DashController",
+      "isActive": true
+    },
+    {
+      "controllerName": "Player_SlideController",
+      "isActive": true
+    },
+    {
+      "controllerName": "Player_UseController",
+      "isActive": true
     }
   ]
 }
