@@ -16,12 +16,14 @@ public class Player_SlideController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
     }
 
     void OnDisable()
     {
         GameBootstrap.MessageBus.Unsubscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
         GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
@@ -40,6 +42,15 @@ public class Player_SlideController : MonoBehaviour
             }
         }
         else
+        {
+            StopSlide();
+            _isSliding = false;
+        }
+    }
+
+    void OnPlayerJumpMessageReceived(Player_JumpMessage message)
+    {
+        if (_isSliding)
         {
             StopSlide();
             _isSliding = false;
