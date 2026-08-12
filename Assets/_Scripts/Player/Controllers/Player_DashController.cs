@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_DashController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _dashForce;
     [SerializeField] private float _dashDuration;
     [SerializeField] private float _dashCooldown;
 
@@ -22,6 +23,7 @@ public class Player_DashController : MonoBehaviour
     void OnDisable()
     {
         GameBootstrap.MessageBus.Unsubscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
+        GameBootstrap.MessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
     }
 
     void OnPlayerDashMessageReceived(Player_DashMessage message)
@@ -32,7 +34,6 @@ public class Player_DashController : MonoBehaviour
     void OnPlayerMoveMessageReceived(Player_MoveMessage message)
     {
         _moveInput = message.MoveInput;
-        Debug.Log(_moveInput);
     }
 
     void Dash()
@@ -54,17 +55,22 @@ public class Player_DashController : MonoBehaviour
 
         _lastDashTime = Time.time;
 
+        GameBootstrap.MessageBus.Publish(new Player_DashStartMessage());
+
         float dashStartTime = Time.time;
 
         if (_lastDashTime + _dashCooldown > dashStartTime)
         {
             while (Time.time < dashStartTime + _dashDuration)
             {
-                _rigidbody.AddForce(transform.rotation * direction * 1500f, ForceMode.Impulse);
+                _rigidbody.AddForce(transform.rotation * direction * _dashForce, ForceMode.Impulse);
                 yield return new WaitForFixedUpdate();
             }
         }
 
+        yield return new WaitForFixedUpdate();
+        Debug.Log("end dash");
+        GameBootstrap.MessageBus.Publish(new Player_DashFinishMessage());
         yield return new WaitForFixedUpdate();
     }
 }

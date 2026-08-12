@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player_MoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _moveForce;
 
     private Player_State _player_State;
     private Vector2 _moveInput;
@@ -32,7 +32,7 @@ public class Player_MoveController : MonoBehaviour
     {
         _player_State = message.Player_State;
 
-        if (_player_State == Player_State.Grounded)
+        if (_player_State != Player_State.Airborne)
             _stateMovePenalty = 1f;
 
         if (_player_State == Player_State.Airborne)
@@ -52,7 +52,7 @@ public class Player_MoveController : MonoBehaviour
         if (movement.magnitude > 1f)
             movement.Normalize();
 
-        Vector3 horizontalForce = _stateMovePenalty * _moveSpeed * movement;
+        Vector3 horizontalForce = _stateMovePenalty * _moveForce * movement;
         _rigidbody.AddForce(horizontalForce, ForceMode.Force);
 
         Vector3 velocity = _rigidbody.linearVelocity;

@@ -4,20 +4,44 @@ public class Player_StateMachine : MonoBehaviour
 {
     private Player_State _currentState;
 
+    private bool _currentIsGroundedHelper;
+
     private void Awake()
     {
         _currentState = Player_State.Grounded;
         SetNewState(_currentState);
         GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_DashStartMessage>(OnPlayerDashStartMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
     }
 
     void OnPlayerIsGroundedMessageReceived(Player_IsGroundedMessage message)
     {
         Debug.Log("Received grounded message " + message.IsGrounded);
-        if(message.IsGrounded)
+        _currentIsGroundedHelper = message.IsGrounded;
+        if (_currentState != Player_State.Grounded || _currentState != Player_State.Airborne)
+        {
+            DecideOnGroundedState();
+        }
+    }
+
+    void OnPlayerDashStartMessageReceived(Player_DashStartMessage message)
+    {
+        SetNewState(Player_State.Dashing);
+    }
+
+    void OnPlayerDashFinishMessageReceived(Player_DashFinishMessage message)
+    {
+        DecideOnGroundedState();
+    }
+
+    private void DecideOnGroundedState()
+    {
+        if (_currentIsGroundedHelper)
         {
             SetNewState(Player_State.Grounded);
-        } else
+        }
+        else
         {
             SetNewState(Player_State.Airborne);
         }
@@ -31,5 +55,6 @@ public class Player_StateMachine : MonoBehaviour
         _currentState = newState;
 
         GameBootstrap.MessageBus.Publish(new Player_StateMessage(_currentState));
+        Debug.LogWarning(_currentState);
     }
 }

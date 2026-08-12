@@ -1,5 +1,7 @@
 public enum Player_State
 {
     Grounded,
-    Airborne
+    Airborne,
+    Sliding,
+    Dashing
 }
