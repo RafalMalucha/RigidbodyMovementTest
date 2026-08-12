@@ -12795,6 +12795,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0e8c1fae4764249b1c0512f79b078e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_SlideController
+  _rigidbody: {fileID: 0}
+  _pMaterial: {fileID: 13400000, guid: 1dfb4cbb9cd09954aba6c0326418838d, type: 2}
+  _pMaterialNormalValues: {x: 0.35, y: 0.35}
+  _pMaterialSlideValues: {x: 0.05, y: 0.05}
 --- !u!114 &1097030231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12885,7 +12889,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097030225}
-  m_Material: {fileID: 13400000, guid: b09cbd9ab7ae5f24ead360011b03b351, type: 2}
+  m_Material: {fileID: 13400000, guid: 1dfb4cbb9cd09954aba6c0326418838d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

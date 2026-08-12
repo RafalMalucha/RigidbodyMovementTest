@@ -9,6 +9,7 @@ public class Player_DashController : MonoBehaviour
     [SerializeField] private float _dashDuration;
     [SerializeField] private float _dashCooldown;
 
+    private Player_State _currentState;
     private Vector2 _moveInput;
     private float _lastDashTime;
 
@@ -18,12 +19,14 @@ public class Player_DashController : MonoBehaviour
         _lastDashTime = 0f;
         GameBootstrap.MessageBus.Subscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnDisable()
     {
         GameBootstrap.MessageBus.Unsubscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
         GameBootstrap.MessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerDashMessageReceived(Player_DashMessage message)
@@ -36,15 +39,26 @@ public class Player_DashController : MonoBehaviour
         _moveInput = message.MoveInput;
     }
 
+    void OnPlayerStateMessageReceived(Player_StateMessage message)
+    {
+        _currentState = message.Player_State;
+    }
+
     void Dash()
     {
         if (_moveInput == new Vector2(0f, 0f))
         {
-            StartCoroutine(DashCoroutine(Vector3.forward));
+            if(_currentState == Player_State.Grounded || _currentState == Player_State.Airborne)
+            {
+                StartCoroutine(DashCoroutine(Vector3.forward));
+            }
         }
         else
         {
-            StartCoroutine(DashCoroutine(new Vector3(_moveInput.x, 0f, _moveInput.y)));
+            if (_currentState == Player_State.Grounded || _currentState == Player_State.Airborne)
+            {
+                StartCoroutine(DashCoroutine(new Vector3(_moveInput.x, 0f, _moveInput.y)));
+            }
         }
     }
 

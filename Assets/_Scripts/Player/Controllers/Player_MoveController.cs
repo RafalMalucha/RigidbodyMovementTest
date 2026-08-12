@@ -32,11 +32,21 @@ public class Player_MoveController : MonoBehaviour
     {
         _player_State = message.Player_State;
 
-        if (_player_State != Player_State.Airborne)
-            _stateMovePenalty = 1f;
-
-        if (_player_State == Player_State.Airborne)
-            _stateMovePenalty = 0.25f;
+        switch (_player_State)
+        {
+            case Player_State.Grounded:
+                _stateMovePenalty = 1f;
+                break;
+            case Player_State.Airborne:
+                _stateMovePenalty = 0.25f;
+                break;
+            case Player_State.Sliding:
+                _stateMovePenalty = 0f;
+                break;
+            default:
+                _stateMovePenalty = 1f;
+                break;
+        }
     }
 
     private void FixedUpdate()

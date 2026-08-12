@@ -13,16 +13,22 @@ public class Player_StateMachine : MonoBehaviour
         GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_DashStartMessage>(OnPlayerDashStartMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_SlideStartMessage>(OnPlayerSlideStartMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
     }
 
     void OnPlayerIsGroundedMessageReceived(Player_IsGroundedMessage message)
     {
         Debug.Log("Received grounded message " + message.IsGrounded);
         _currentIsGroundedHelper = message.IsGrounded;
+        if (_currentState == Player_State.Sliding)
+            return;
+
+        if (_currentState == Player_State.Dashing)
+            return;
+
         if (_currentState != Player_State.Grounded || _currentState != Player_State.Airborne)
-        {
             DecideOnGroundedState();
-        }
     }
 
     void OnPlayerDashStartMessageReceived(Player_DashStartMessage message)
@@ -31,6 +37,16 @@ public class Player_StateMachine : MonoBehaviour
     }
 
     void OnPlayerDashFinishMessageReceived(Player_DashFinishMessage message)
+    {
+        DecideOnGroundedState();
+    }
+
+    void OnPlayerSlideStartMessageReceived(Player_SlideStartMessage message)
+    {
+        SetNewState(Player_State.Sliding);
+    }
+
+    void OnPlayerSlideFinishMessageReceived(Player_SlideFinishMessage message)
     {
         DecideOnGroundedState();
     }
