@@ -5,8 +5,6 @@ public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _inputActions;
 
-    private MessageBus _mBus;
-
     private InputAction _attack;
     private InputAction _move;
     private InputAction _look;

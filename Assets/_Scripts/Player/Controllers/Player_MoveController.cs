@@ -44,6 +44,9 @@ public class Player_MoveController : MonoBehaviour
             case Player_State.Sliding:
                 _stateMovePenalty = 0f;
                 break;
+            case Player_State.WallRunning:
+                _stateMovePenalty = 0f;
+                break;
             default:
                 _stateMovePenalty = 1f;
                 break;
@@ -92,6 +95,11 @@ public class Player_MoveController : MonoBehaviour
         Vector3 hVelocity = new Vector3(velocity.x, 0f, velocity.z);
 
         hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
+
+        if(_player_State == Player_State.WallRunning)
+        {
+            velocity.y = 0f;
+        }
 
         _rigidbody.linearVelocity = new Vector3(hVelocity.x, velocity.y, hVelocity.z);
     }

@@ -15,6 +15,8 @@ public class Player_StateMachine : MonoBehaviour
         GameBootstrap.MessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_SlideStartMessage>(OnPlayerSlideStartMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
     }
 
     void OnPlayerIsGroundedMessageReceived(Player_IsGroundedMessage message)
@@ -47,6 +49,20 @@ public class Player_StateMachine : MonoBehaviour
     }
 
     void OnPlayerSlideFinishMessageReceived(Player_SlideFinishMessage message)
+    {
+        DecideOnGroundedState();
+    }
+
+    void OnPlayerWallrunEnterMessageReceived(Player_WallrunEnterMessage message)
+    {
+        if (_currentState == Player_State.Airborne)
+        {
+            Debug.Log("state machine wallrun enter");
+            SetNewState(Player_State.WallRunning);
+        }
+    }
+
+    void OnPlayerWallrunExitMessageReceived(Player_WallrunExitMessage message)
     {
         DecideOnGroundedState();
     }

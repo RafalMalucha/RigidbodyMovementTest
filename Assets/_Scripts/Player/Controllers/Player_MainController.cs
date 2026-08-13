@@ -7,6 +7,7 @@ public class Player_MainController : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _playerGravity;
 
+    private Player_State _currentState;
     private bool _isGrounded;
     private bool _onSlope;
     private Vector3 _boxCastOriginOffset = new Vector3(0f, 0.01f, 0f);
@@ -27,6 +28,7 @@ public class Player_MainController : MonoBehaviour
         }
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerOnSlopeMessageReceived(Player_OnSlopeMessage message)
@@ -34,21 +36,18 @@ public class Player_MainController : MonoBehaviour
         _onSlope = message.OnSlope;
     }
 
+    void OnPlayerStateMessageReceived(Player_StateMessage message)
+    {
+        _currentState = message.Player_State;
+    }
+
     void FixedUpdate()
     {
-        if (!(_isGrounded && _onSlope))
-        {
-            _rigidbody.AddForce(Vector3.down * _playerGravity, ForceMode.Force);
-        }
-        else
+        if(_currentState != Player_State.WallRunning)
         {
             _rigidbody.AddForce(_playerGravity * Vector3.down, ForceMode.Force);
-
-            // if(_rigidbody.linearVelocity.y != 0f)
-            // {
-            //     _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Force);
-            // }
         }
+
         GroundCheck();
     }
 
