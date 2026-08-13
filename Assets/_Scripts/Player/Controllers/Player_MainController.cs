@@ -8,12 +8,13 @@ public class Player_MainController : MonoBehaviour
     [SerializeField] private float _playerGravity;
 
     private bool _isGrounded;
+    private bool _onSlope;
     private Vector3 _boxCastOriginOffset = new Vector3(0f, 0.01f, 0f);
     private Vector3 _boxCastHalfExtents = new Vector3(0.5f, 0.05f, 0.5f);
 
     void Awake()
     {
-        foreach(PlayerControllerSettings setting in GameBootstrap.PlayerControllersSettings.controllersSettings)
+        foreach (PlayerControllerSettings setting in GameBootstrap.PlayerControllersSettings.controllersSettings)
         {
             Type controllerType = Type.GetType(setting.controllerName);
             Component component = GetComponent(controllerType);
@@ -25,13 +26,32 @@ public class Player_MainController : MonoBehaviour
 
         }
         _rigidbody = GetComponent<Rigidbody>();
+        GameBootstrap.MessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
+    }
+
+    void OnPlayerOnSlopeMessageReceived(Player_OnSlopeMessage message)
+    {
+        _onSlope = message.OnSlope;
     }
 
     void FixedUpdate()
     {
-        _rigidbody.AddForce(Vector3.down * _playerGravity, ForceMode.Force);
+        if (!(_isGrounded && _onSlope))
+        {
+            _rigidbody.AddForce(Vector3.down * _playerGravity, ForceMode.Force);
+        }
+        else
+        {
+            _rigidbody.AddForce(_playerGravity * Vector3.down, ForceMode.Force);
+
+            // if(_rigidbody.linearVelocity.y != 0f)
+            // {
+            //     _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Force);
+            // }
+        }
         GroundCheck();
     }
+
 
     private void GroundCheck()
     {

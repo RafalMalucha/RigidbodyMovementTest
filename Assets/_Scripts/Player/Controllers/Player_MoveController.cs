@@ -5,6 +5,7 @@ public class Player_MoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _moveForce;
+    [SerializeField] private PhysicsMaterial _pMaterial;
 
     private Player_State _player_State;
     private Vector2 _moveInput;
@@ -59,6 +60,28 @@ public class Player_MoveController : MonoBehaviour
         Vector3 movement = _moveInput.y * transform.forward + _moveInput.x * transform.right;
         movement.y = 0f;
 
+        if (GetGroundNormal(out Vector3 groundNormal))
+        {
+            float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
+
+            if (slopeAngle <= 46f && slopeAngle >= 5f)
+            {
+                movement = Vector3.ProjectOnPlane(movement, groundNormal);
+                Debug.LogWarning("on slope");
+                GameBootstrap.MessageBus.Publish(new Player_OnSlopeMessage(true));
+                // _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Force);
+            }
+            else
+            {
+                GameBootstrap.MessageBus.Publish(new Player_OnSlopeMessage(false));
+            }
+        }
+
+        if(_rigidbody.linearVelocity.y > 25f)
+        {
+            _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Impulse);
+        }
+
         if (movement.magnitude > 1f)
             movement.Normalize();
 
@@ -71,5 +94,24 @@ public class Player_MoveController : MonoBehaviour
         hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
 
         _rigidbody.linearVelocity = new Vector3(hVelocity.x, velocity.y, hVelocity.z);
+    }
+
+    private bool GetGroundNormal(out Vector3 groundNormal)
+    {
+        Debug.DrawRay(transform.position, Vector3.down * 0.35f, Color.red);
+
+        if (Physics.Raycast(
+            transform.position,
+            Vector3.down,
+            out RaycastHit hit,
+            0.4f,
+            LayerMask.GetMask("Level")))
+        {
+            groundNormal = hit.normal;
+            return true;
+        }
+
+        groundNormal = Vector3.up;
+        return false;
     }
 }

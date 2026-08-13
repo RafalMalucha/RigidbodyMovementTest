@@ -78,6 +78,7 @@ public class Player_DashController : MonoBehaviour
             while (Time.time < dashStartTime + _dashDuration)
             {
                 _rigidbody.AddForce(transform.rotation * direction * _dashForce, ForceMode.Impulse);
+
                 yield return new WaitForFixedUpdate();
             }
         }
