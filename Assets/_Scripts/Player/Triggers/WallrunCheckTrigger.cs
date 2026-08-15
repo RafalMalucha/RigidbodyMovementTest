@@ -2,29 +2,38 @@ using UnityEngine;
 
 public class WallrunCheckTriger : MonoBehaviour
 {
+    private Player_State _playerState;
+
+    private void OnEnable()
+    {
+        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+    }
+
+    private void OnDisable()
+    {
+        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+    }
+
+    void OnPlayerStateMessageReceived(Player_StateMessage message)
+    {
+        _playerState = message.Player_State;
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Wallrun"))
         {
-            Debug.Log("wallrun start test");
+            Debug.LogWarning("wallrun start test");
 
-            Debug.DrawRay(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.right * 1.1f, Color.red, 2f);
-            Physics.Raycast(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.right, out RaycastHit hitRight, 1.1f, LayerMask.GetMask("Level"));
-            Debug.DrawRay(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.left * 1.1f, Color.red, 2f);
-            Physics.Raycast(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.left, out RaycastHit hitLeft, 1.1f, LayerMask.GetMask("Level"));
+            TryForWallrun();
+        }
+    }
 
-            if (hitLeft.normal == new Vector3(0f, 0f, 0f))
-            {
-                Debug.Log(hitRight.normal);
-                GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitRight.normal));
-            }
-
-
-            if (hitRight.normal == new Vector3(0f, 0f, 0f))
-            {
-                Debug.Log(hitLeft.normal);
-                GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitLeft.normal));
-            }
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.CompareTag("Wallrun") && _playerState == Player_State.Airborne)
+        {
+            TryForWallrun();
         }
     }
 
@@ -33,6 +42,27 @@ public class WallrunCheckTriger : MonoBehaviour
         if (collider.CompareTag("Wallrun"))
         {
             GameBootstrap.MessageBus.Publish(new Player_WallrunExitMessage());
+        }
+    }
+
+    private void TryForWallrun()
+    {
+        Debug.DrawRay(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.right * 1.1f, Color.red, 2f);
+        Physics.Raycast(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.right, out RaycastHit hitRight, 1.1f, LayerMask.GetMask("Level"));
+        Debug.DrawRay(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.left * 1.1f, Color.red, 2f);
+        Physics.Raycast(transform.parent.position + new Vector3(0f, 1.5f, 0f), transform.parent.rotation * Vector3.left, out RaycastHit hitLeft, 1.1f, LayerMask.GetMask("Level"));
+
+        if (hitLeft.normal == new Vector3(0f, 0f, 0f))
+        {
+            Debug.Log(hitRight.normal);
+            GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitRight.normal));
+        }
+
+
+        if (hitRight.normal == new Vector3(0f, 0f, 0f))
+        {
+            Debug.Log(hitLeft.normal);
+            GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitLeft.normal));
         }
     }
 }

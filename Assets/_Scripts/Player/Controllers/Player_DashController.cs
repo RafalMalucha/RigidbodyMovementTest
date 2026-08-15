@@ -77,6 +77,13 @@ public class Player_DashController : MonoBehaviour
         {
             while (Time.time < dashStartTime + _dashDuration)
             {
+                if(_currentState == Player_State.WallRunning)
+                {
+                    Debug.Log("end dash");
+                    GameBootstrap.MessageBus.Publish(new Player_DashFinishMessage());
+                    yield return new WaitForFixedUpdate();
+                    break;
+                }
                 _rigidbody.AddForce(transform.rotation * direction * _dashForce, ForceMode.Impulse);
 
                 yield return new WaitForFixedUpdate();

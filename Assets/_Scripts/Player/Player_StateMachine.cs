@@ -55,7 +55,7 @@ public class Player_StateMachine : MonoBehaviour
 
     void OnPlayerWallrunEnterMessageReceived(Player_WallrunEnterMessage message)
     {
-        if (_currentState == Player_State.Airborne)
+        if (_currentState == Player_State.Airborne || _currentState == Player_State.Dashing)
         {
             Debug.Log("state machine wallrun enter");
             SetNewState(Player_State.WallRunning);

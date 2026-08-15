@@ -84,7 +84,7 @@ public class Player_WallrunController : MonoBehaviour
         _rigidbody.AddForce(_wallNormal * 300f, ForceMode.Impulse);
         _rigidbody.AddForce(transform.rotation * Vector3.forward * 200f, ForceMode.Impulse);
         yield return new WaitForFixedUpdate();
-        _rigidbody.AddForce(Vector3.up * 100f, ForceMode.Impulse);
+        _rigidbody.AddForce(Vector3.up * 75f, ForceMode.Impulse);
         yield return new WaitForFixedUpdate();
     }
 }
