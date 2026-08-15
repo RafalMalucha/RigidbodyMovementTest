@@ -68,10 +68,12 @@ public class Player_WallrunController : MonoBehaviour
         if (Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection) > 120f)
         {
             _rigidbody.AddForce(-wallrunDirection * 500f, ForceMode.Impulse);
+            GameBootstrap.MessageBus.Publish(new Player_WallrunLimitRotationMessage(-wallrunDirection));
         }
         else
         {
             _rigidbody.AddForce(wallrunDirection * 500f, ForceMode.Impulse);
+            GameBootstrap.MessageBus.Publish(new Player_WallrunLimitRotationMessage(wallrunDirection));
         }
     }
 
