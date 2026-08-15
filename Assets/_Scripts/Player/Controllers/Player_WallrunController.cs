@@ -57,27 +57,23 @@ public class Player_WallrunController : MonoBehaviour
     {
         Debug.Log(_wallNormal);
         _wallrunStartTime = Time.time;
+        Debug.Log("DO WALLRUN NEW WALL");
 
-        // while (Time.time < _wallrunStartTime + _maxWallrunDuration)
-        // {
-        //     //Debug.Log("wallrun time");
-        // }
-        //WallrunCancel();
+        Vector3 wallrunDirection = Vector3.Cross(_wallNormal, Vector3.down);
+
+        Debug.Log(_rigidbody.linearVelocity);
+        Debug.Log(wallrunDirection);
+        Debug.Log(Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection));
+
+        if (Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection) > 120f)
+        {
+            _rigidbody.AddForce(-wallrunDirection * 500f, ForceMode.Impulse);
+        }
+        else
+        {
+            _rigidbody.AddForce(wallrunDirection * 500f, ForceMode.Impulse);
+        }
     }
-
-    // private void WallrunCancel()
-    // {
-    //     Debug.Log("wallrun cancel jump");
-    //     _rigidbody.AddForce(_wallNormal * 300f, ForceMode.Impulse);
-    //     _rigidbody.AddForce(transform.rotation * Vector3.forward * 200f, ForceMode.Impulse);
-
-    //     //_rigidbody.AddForce(Vector3.up * 500f, ForceMode.Impulse);
-    // }
-
-    // IEnumerator Wallrun()
-    // {
-
-    // }
 
     IEnumerator WallrunCancel()
     {

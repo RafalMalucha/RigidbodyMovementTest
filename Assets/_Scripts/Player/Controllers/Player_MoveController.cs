@@ -94,7 +94,10 @@ public class Player_MoveController : MonoBehaviour
         Vector3 velocity = _rigidbody.linearVelocity;
         Vector3 hVelocity = new Vector3(velocity.x, 0f, velocity.z);
 
-        hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
+        if(_player_State != Player_State.Sliding)
+        {
+            hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
+        }
 
         if(_player_State == Player_State.WallRunning)
         {

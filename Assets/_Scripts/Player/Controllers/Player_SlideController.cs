@@ -63,6 +63,14 @@ public class Player_SlideController : MonoBehaviour
         transform.localScale = new Vector3(1f, 0.5f, 1f);
         _pMaterial.staticFriction = _pMaterialSlideValues.x;
         _pMaterial.dynamicFriction = _pMaterialSlideValues.y;
+        if (_rigidbody.linearVelocity != Vector3.zero)
+        {
+            _rigidbody.AddForce(_rigidbody.linearVelocity * 2f, ForceMode.Impulse);
+        }
+        else
+        {
+            _rigidbody.AddForce(transform.rotation * Vector3.forward * 20f, ForceMode.Impulse);
+        }
         Debug.Log("player start slide behavior");
     }
 
