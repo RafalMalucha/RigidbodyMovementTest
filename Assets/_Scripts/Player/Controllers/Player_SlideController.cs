@@ -69,7 +69,7 @@ public class Player_SlideController : MonoBehaviour
         }
         else
         {
-            _rigidbody.AddForce(transform.rotation * Vector3.forward * 20f, ForceMode.Impulse);
+            _rigidbody.AddForce(transform.rotation * Vector3.forward * 50f, ForceMode.Impulse);
         }
         Debug.Log("player start slide behavior");
     }
