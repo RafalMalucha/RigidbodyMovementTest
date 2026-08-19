@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class Player_StateMachine : MonoBehaviour
 {
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Normal;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Cracked;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Slowed;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Stunned;
+
+    private Player_Modifier _currentModifier;
+
     private Player_State _currentState;
 
     private bool _currentIsGroundedHelper;

@@ -4,6 +4,8 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_MainController : MonoBehaviour
 {
+    //[SerializeField] private Player_StateModifierValues _stateModifierValues;
+
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _playerGravity;
 
