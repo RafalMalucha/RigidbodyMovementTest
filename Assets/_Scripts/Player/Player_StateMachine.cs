@@ -8,6 +8,7 @@ public class Player_StateMachine : MonoBehaviour
     [SerializeField] private Player_StateModifierValues _stateModifierValues_Stunned;
 
     private Player_Modifier _currentModifier;
+    private Player_StateModifierValues _currentStateModifierValues;
 
     private Player_State _currentState;
 
@@ -17,6 +18,10 @@ public class Player_StateMachine : MonoBehaviour
     {
         _currentState = Player_State.Grounded;
         SetNewState(_currentState);
+
+        _currentModifier = Player_Modifier.Normal;
+        SetNewStateModifier(_currentModifier);
+
         GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_DashStartMessage>(OnPlayerDashStartMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
@@ -95,5 +100,31 @@ public class Player_StateMachine : MonoBehaviour
 
         GameBootstrap.MessageBus.Publish(new Player_StateMessage(_currentState));
         Debug.LogWarning(_currentState);
+    }
+
+    private void SetNewStateModifier(Player_Modifier newModifier)
+    {
+        _currentModifier = newModifier;
+        GameBootstrap.MessageBus.Publish(new Player_StateModifierMessage(_currentModifier));
+
+        switch (_currentModifier)
+        {
+            case Player_Modifier.Normal:
+                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Normal));
+                break;
+            case Player_Modifier.Cracked:
+                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Cracked));
+                Debug.Log("dupa");
+                break;
+            case Player_Modifier.Slowed:
+                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Slowed));
+                break;
+            case Player_Modifier.Stunned:
+                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Stunned));
+                break;
+            default:
+                break;
+        }
+        Debug.LogWarning(_currentModifier);
     }
 }

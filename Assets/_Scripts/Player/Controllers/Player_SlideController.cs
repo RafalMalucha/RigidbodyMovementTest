@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_SlideController : MonoBehaviour
 {
+    [Header("Player_SlideController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private PhysicsMaterial _pMaterial;
     [SerializeField] private Vector2 _pMaterialNormalValues;

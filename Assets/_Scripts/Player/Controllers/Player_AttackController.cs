@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player_AttackController : MonoBehaviour
 {
+    [Header("Player_AttackController Setup")]
+    [SerializeField] private bool _test;
+
     void OnEnable()
     {
         GameBootstrap.MessageBus.Subscribe<Player_AttackMessage>(OnPlayerAttackMessageReceived);

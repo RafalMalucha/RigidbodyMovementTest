@@ -4,8 +4,16 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_MainController : MonoBehaviour
 {
-    //[SerializeField] private Player_StateModifierValues _stateModifierValues;
+    [Header("State Modifiers Scriptable Objects")]
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Normal;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Cracked;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Slowed;
+    [SerializeField] private Player_StateModifierValues _stateModifierValues_Stunned;
 
+    private Player_Modifier _currentModifier;
+    private Player_StateModifierValues _currentStateModifierValues;
+
+    [Header("Player_MainController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _playerGravity;
 
@@ -31,6 +39,8 @@ public class Player_MainController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnPlayerOnSlopeMessageReceived(Player_OnSlopeMessage message)
@@ -41,6 +51,16 @@ public class Player_MainController : MonoBehaviour
     void OnPlayerStateMessageReceived(Player_StateMessage message)
     {
         _currentState = message.Player_State;
+    }
+
+    void OnPlayerStateModifierMessageReceived(Player_StateModifierMessage message)
+    {
+        _currentModifier = message.Player_Modifier;
+    }
+
+    void OnPlayerStateModifierValuesMessageReceived(Player_StateModifierValuesMessage message)
+    {
+        _currentStateModifierValues = message.Player_StateModifierValues;
     }
 
     void FixedUpdate()

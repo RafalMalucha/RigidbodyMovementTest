@@ -3,11 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_MoveController : MonoBehaviour
 {
+    [Header("Player_MoveController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _moveForce;
+    [SerializeField] private float _maxMoveSpeed;
     [SerializeField] private PhysicsMaterial _pMaterial;
 
-    private Player_State _player_State;
+    private Player_State _currentState;
+    private Player_Modifier _currentModifier;
+    private Player_StateModifierValues _currentStateModifierValues;
     private Vector2 _moveInput;
     private float _stateMovePenalty = 1f;
 
@@ -17,6 +21,8 @@ public class Player_MoveController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnDisable()
@@ -31,9 +37,9 @@ public class Player_MoveController : MonoBehaviour
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
     {
-        _player_State = message.Player_State;
+        _currentState = message.Player_State;
 
-        switch (_player_State)
+        switch (_currentState)
         {
             case Player_State.Grounded:
                 _stateMovePenalty = 1f;
@@ -51,6 +57,20 @@ public class Player_MoveController : MonoBehaviour
                 _stateMovePenalty = 1f;
                 break;
         }
+    }
+
+    void OnPlayerStateModifierMessageReceived(Player_StateModifierMessage message)
+    {
+        _currentModifier = message.Player_Modifier;
+    }
+
+    void OnPlayerStateModifierValuesMessageReceived(Player_StateModifierValuesMessage message)
+    {
+        _currentStateModifierValues = message.Player_StateModifierValues;
+        Debug.LogWarning("state modifier");
+        Debug.LogWarning(_currentStateModifierValues.GetMaxMoveSpeed());
+        _moveForce = _currentStateModifierValues.GetMoveForce();
+        _maxMoveSpeed = _currentStateModifierValues.GetMaxMoveSpeed();
     }
 
     private void FixedUpdate()
@@ -94,12 +114,12 @@ public class Player_MoveController : MonoBehaviour
         Vector3 velocity = _rigidbody.linearVelocity;
         Vector3 hVelocity = new Vector3(velocity.x, 0f, velocity.z);
 
-        if(_player_State != Player_State.Sliding)
+        if(_currentState != Player_State.Sliding)
         {
-            hVelocity = Vector3.ClampMagnitude(hVelocity, 15f);
+            hVelocity = Vector3.ClampMagnitude(hVelocity, _maxMoveSpeed);
         }
 
-        if(_player_State == Player_State.WallRunning)
+        if(_currentState == Player_State.WallRunning)
         {
             velocity.y = 0f;
         }

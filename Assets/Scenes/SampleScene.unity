@@ -21307,6 +21307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7f1d8308521a946b5e70ffa7c99271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_UseController
+  _test: 0
 --- !u!114 &1097030230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21351,6 +21352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6f6f080e34daa4297f53972980713b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_AttackController
+  _test: 0
 --- !u!114 &1097030233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21379,6 +21381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_MoveController
   _rigidbody: {fileID: 0}
   _moveForce: 500
+  _maxMoveSpeed: 15
   _pMaterial: {fileID: 13400000, guid: 1dfb4cbb9cd09954aba6c0326418838d, type: 2}
 --- !u!54 &1097030235
 Rigidbody:
@@ -21440,6 +21443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0e24778df6dc34c92540b8fceeabdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_MainController
+  _stateModifierValues_Normal: {fileID: 11400000, guid: 29daa12b98af95c4f921d912cdc823bb, type: 2}
+  _stateModifierValues_Cracked: {fileID: 11400000, guid: a16f2d7e4a475eb439f82946974a3364, type: 2}
+  _stateModifierValues_Slowed: {fileID: 11400000, guid: dc89d429e78f19b4a92d38ef010e2c7f, type: 2}
+  _stateModifierValues_Stunned: {fileID: 11400000, guid: 80b17dbdc9ce60e409eac3aa0f4a46f4, type: 2}
   _rigidbody: {fileID: 0}
   _playerGravity: 250
 --- !u!114 &1097030238
@@ -21454,6 +21461,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f62bb9a5aeba2c43bddca02c275540c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_StateMachine
+  _stateModifierValues_Normal: {fileID: 11400000, guid: 29daa12b98af95c4f921d912cdc823bb, type: 2}
+  _stateModifierValues_Cracked: {fileID: 11400000, guid: a16f2d7e4a475eb439f82946974a3364, type: 2}
+  _stateModifierValues_Slowed: {fileID: 11400000, guid: dc89d429e78f19b4a92d38ef010e2c7f, type: 2}
+  _stateModifierValues_Stunned: {fileID: 11400000, guid: 80b17dbdc9ce60e409eac3aa0f4a46f4, type: 2}
 --- !u!136 &1097030239
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_JumpController : MonoBehaviour
 {
+    [Header("Player_JumpController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _jumpForce;
     [SerializeField] private int _extraAirborneJumps;

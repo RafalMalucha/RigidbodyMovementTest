@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_DashController : MonoBehaviour
 {
+    [Header("Player_DashController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _dashForce;
     [SerializeField] private float _dashDuration;

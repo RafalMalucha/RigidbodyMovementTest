@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player_UseController : MonoBehaviour
 {
+    [Header("Player_UseController Setup")]
+    [SerializeField] private bool _test;
+
     void OnEnable()
     {
         GameBootstrap.MessageBus.Subscribe<Player_UseMessage>(OnPlayerUseMessageReceived);

@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_WallrunController : MonoBehaviour
 {
+    [Header("Player_WallrunController Setup")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _maxWallrunDuration;
 

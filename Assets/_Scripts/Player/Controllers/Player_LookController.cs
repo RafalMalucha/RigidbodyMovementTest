@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_LookController : MonoBehaviour
 {
+    [Header("Player_LookController Setup")]
     [SerializeField] private Camera _playerCamera;
     [SerializeField] private Rigidbody _rigidbody;
 
