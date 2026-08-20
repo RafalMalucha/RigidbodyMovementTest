@@ -8,7 +8,9 @@ public class Player_JumpController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private int _extraAirborneJumps;
 
-    private Player_State _player_State;
+    private Player_State _currentState;
+    private Player_Modifier _currentModifier;
+    private Player_StateModifierValues _currentStateModifierValues;
     private bool _isGrounded;
     private int _currenlyAvailableAirborneJumps;
 
@@ -19,6 +21,8 @@ public class Player_JumpController : MonoBehaviour
         GameBootstrap.MessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnDisable()
@@ -40,21 +44,32 @@ public class Player_JumpController : MonoBehaviour
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
     {
-        _player_State = message.Player_State;
-        if(_player_State == Player_State.Airborne)
+        _currentState = message.Player_State;
+        if (_currentState == Player_State.Airborne)
         {
             _currenlyAvailableAirborneJumps = _extraAirborneJumps;
         }
+    }
+
+    void OnPlayerStateModifierMessageReceived(Player_StateModifierMessage message)
+    {
+        _currentModifier = message.Player_Modifier;
+    }
+
+    void OnPlayerStateModifierValuesMessageReceived(Player_StateModifierValuesMessage message)
+    {
+        _currentStateModifierValues = message.Player_StateModifierValues;
+        _jumpForce = _currentStateModifierValues.GetJumpForce();
     }
 
     private void Jump()
     {
         Debug.Log("player jump behavior");
 
-        if (_player_State == Player_State.Grounded)
+        if (_currentState == Player_State.Grounded)
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
 
-        if (_player_State == Player_State.Airborne && _currenlyAvailableAirborneJumps > 0)
+        if (_currentState == Player_State.Airborne && _currenlyAvailableAirborneJumps > 0)
         {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _currenlyAvailableAirborneJumps -= 1;

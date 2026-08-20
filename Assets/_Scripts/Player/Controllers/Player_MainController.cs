@@ -4,12 +4,6 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class Player_MainController : MonoBehaviour
 {
-    [Header("State Modifiers Scriptable Objects")]
-    [SerializeField] private Player_StateModifierValues _stateModifierValues_Normal;
-    [SerializeField] private Player_StateModifierValues _stateModifierValues_Cracked;
-    [SerializeField] private Player_StateModifierValues _stateModifierValues_Slowed;
-    [SerializeField] private Player_StateModifierValues _stateModifierValues_Stunned;
-
     private Player_Modifier _currentModifier;
     private Player_StateModifierValues _currentStateModifierValues;
 

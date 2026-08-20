@@ -11,6 +11,8 @@ public class Player_DashController : MonoBehaviour
     [SerializeField] private float _dashCooldown;
 
     private Player_State _currentState;
+    private Player_Modifier _currentModifier;
+    private Player_StateModifierValues _currentStateModifierValues;
     private Vector2 _moveInput;
     private float _lastDashTime;
 
@@ -21,6 +23,8 @@ public class Player_DashController : MonoBehaviour
         GameBootstrap.MessageBus.Subscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
         GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnDisable()
@@ -43,6 +47,17 @@ public class Player_DashController : MonoBehaviour
     void OnPlayerStateMessageReceived(Player_StateMessage message)
     {
         _currentState = message.Player_State;
+    }
+
+    void OnPlayerStateModifierMessageReceived(Player_StateModifierMessage message)
+    {
+        _currentModifier = message.Player_Modifier;
+    }
+
+    void OnPlayerStateModifierValuesMessageReceived(Player_StateModifierValuesMessage message)
+    {
+        _currentStateModifierValues = message.Player_StateModifierValues;
+        _dashForce = _currentStateModifierValues.GetDashForce();
     }
 
     void Dash()

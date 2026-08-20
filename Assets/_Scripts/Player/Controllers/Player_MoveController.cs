@@ -67,8 +67,6 @@ public class Player_MoveController : MonoBehaviour
     void OnPlayerStateModifierValuesMessageReceived(Player_StateModifierValuesMessage message)
     {
         _currentStateModifierValues = message.Player_StateModifierValues;
-        Debug.LogWarning("state modifier");
-        Debug.LogWarning(_currentStateModifierValues.GetMaxMoveSpeed());
         _moveForce = _currentStateModifierValues.GetMoveForce();
         _maxMoveSpeed = _currentStateModifierValues.GetMaxMoveSpeed();
     }

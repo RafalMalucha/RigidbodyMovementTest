@@ -53,7 +53,7 @@ public class Player_LookController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Look();
     }

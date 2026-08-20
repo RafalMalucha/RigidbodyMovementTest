@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player_StateMachine : MonoBehaviour
 {
+    [Header("Player State Modifier Values - Scriptable Objects")]
     [SerializeField] private Player_StateModifierValues _stateModifierValues_Normal;
     [SerializeField] private Player_StateModifierValues _stateModifierValues_Cracked;
     [SerializeField] private Player_StateModifierValues _stateModifierValues_Slowed;
@@ -53,6 +54,8 @@ public class Player_StateMachine : MonoBehaviour
     void OnPlayerDashFinishMessageReceived(Player_DashFinishMessage message)
     {
         DecideOnGroundedState();
+        _currentModifier = Player_Modifier.Cracked;
+        SetNewStateModifier(_currentModifier);
     }
 
     void OnPlayerSlideStartMessageReceived(Player_SlideStartMessage message)
