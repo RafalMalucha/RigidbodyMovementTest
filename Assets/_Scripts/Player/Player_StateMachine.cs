@@ -23,13 +23,13 @@ public class Player_StateMachine : MonoBehaviour
         _currentModifier = Player_Modifier.Normal;
         SetNewStateModifier(_currentModifier);
 
-        GameBootstrap.MessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_DashStartMessage>(OnPlayerDashStartMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_SlideStartMessage>(OnPlayerSlideStartMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_IsGroundedMessage>(OnPlayerIsGroundedMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_DashStartMessage>(OnPlayerDashStartMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_DashFinishMessage>(OnPlayerDashFinishMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideStartMessage>(OnPlayerSlideStartMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
     }
 
     void OnPlayerIsGroundedMessageReceived(Player_IsGroundedMessage message)
@@ -54,8 +54,6 @@ public class Player_StateMachine : MonoBehaviour
     void OnPlayerDashFinishMessageReceived(Player_DashFinishMessage message)
     {
         DecideOnGroundedState();
-        _currentModifier = Player_Modifier.Cracked;
-        SetNewStateModifier(_currentModifier);
     }
 
     void OnPlayerSlideStartMessageReceived(Player_SlideStartMessage message)
@@ -101,29 +99,29 @@ public class Player_StateMachine : MonoBehaviour
 
         _currentState = newState;
 
-        GameBootstrap.MessageBus.Publish(new Player_StateMessage(_currentState));
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateMessage(_currentState));
         Debug.LogWarning(_currentState);
     }
 
     private void SetNewStateModifier(Player_Modifier newModifier)
     {
         _currentModifier = newModifier;
-        GameBootstrap.MessageBus.Publish(new Player_StateModifierMessage(_currentModifier));
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierMessage(_currentModifier));
 
         switch (_currentModifier)
         {
             case Player_Modifier.Normal:
-                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Normal));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Normal));
                 break;
             case Player_Modifier.Cracked:
-                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Cracked));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Cracked));
                 Debug.Log("dupa");
                 break;
             case Player_Modifier.Slowed:
-                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Slowed));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Slowed));
                 break;
             case Player_Modifier.Stunned:
-                GameBootstrap.MessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Stunned));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Stunned));
                 break;
             default:
                 break;

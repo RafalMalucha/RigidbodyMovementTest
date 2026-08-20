@@ -20,18 +20,18 @@ public class Player_DashController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _lastDashTime = 0f;
-        GameBootstrap.MessageBus.Subscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_DashMessage>(OnPlayerDashMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerDashMessageReceived(Player_DashMessage message)
@@ -85,7 +85,7 @@ public class Player_DashController : MonoBehaviour
 
         _lastDashTime = Time.time;
 
-        GameBootstrap.MessageBus.Publish(new Player_DashStartMessage());
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_DashStartMessage());
 
         float dashStartTime = Time.time;
 
@@ -96,7 +96,7 @@ public class Player_DashController : MonoBehaviour
                 if(_currentState == Player_State.WallRunning)
                 {
                     Debug.Log("end dash");
-                    GameBootstrap.MessageBus.Publish(new Player_DashFinishMessage());
+                    GameBootstrap.PlayerControllerMessageBus.Publish(new Player_DashFinishMessage());
                     yield return new WaitForFixedUpdate();
                     break;
                 }
@@ -108,7 +108,7 @@ public class Player_DashController : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
         Debug.Log("end dash");
-        GameBootstrap.MessageBus.Publish(new Player_DashFinishMessage());
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_DashFinishMessage());
         yield return new WaitForFixedUpdate();
     }
 }

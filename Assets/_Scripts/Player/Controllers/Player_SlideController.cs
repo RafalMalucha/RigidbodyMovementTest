@@ -15,16 +15,16 @@ public class Player_SlideController : MonoBehaviour
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        GameBootstrap.MessageBus.Subscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
@@ -60,7 +60,7 @@ public class Player_SlideController : MonoBehaviour
 
     void StartSlide()
     {
-        GameBootstrap.MessageBus.Publish(new Player_SlideStartMessage());
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_SlideStartMessage());
         transform.localScale = new Vector3(1f, 0.5f, 1f);
         _pMaterial.staticFriction = _pMaterialSlideValues.x;
         _pMaterial.dynamicFriction = _pMaterialSlideValues.y;
@@ -77,7 +77,7 @@ public class Player_SlideController : MonoBehaviour
 
     void StopSlide()
     {
-        GameBootstrap.MessageBus.Publish(new Player_SlideFinishMessage());
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_SlideFinishMessage());
         transform.localScale = new Vector3(1f, 1f, 1f);
         _pMaterial.staticFriction = _pMaterialNormalValues.x;
         _pMaterial.dynamicFriction = _pMaterialNormalValues.y;

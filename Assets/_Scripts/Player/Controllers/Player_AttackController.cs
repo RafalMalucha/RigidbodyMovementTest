@@ -7,12 +7,12 @@ public class Player_AttackController : MonoBehaviour
 
     void OnEnable()
     {
-        GameBootstrap.MessageBus.Subscribe<Player_AttackMessage>(OnPlayerAttackMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_AttackMessage>(OnPlayerAttackMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_AttackMessage>(OnPlayerAttackMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_AttackMessage>(OnPlayerAttackMessageReceived);
     }
 
     void OnPlayerAttackMessageReceived(Player_AttackMessage message)

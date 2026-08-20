@@ -31,10 +31,10 @@ public class Player_MainController : MonoBehaviour
 
         }
         _rigidbody = GetComponent<Rigidbody>();
-        GameBootstrap.MessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnPlayerOnSlopeMessageReceived(Player_OnSlopeMessage message)
@@ -75,7 +75,7 @@ public class Player_MainController : MonoBehaviour
         if (grounded != _isGrounded)
         {
             _isGrounded = grounded;
-            GameBootstrap.MessageBus.Publish(new Player_IsGroundedMessage(_isGrounded));
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_IsGroundedMessage(_isGrounded));
         }
     }
 

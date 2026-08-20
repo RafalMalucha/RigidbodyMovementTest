@@ -19,15 +19,15 @@ public class Player_MoveController : MonoBehaviour
     {
         Debug.Log("move controller enabled");
         _rigidbody = GetComponent<Rigidbody>();
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierMessage>(OnPlayerStateModifierMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateModifierValuesMessage>(OnPlayerStateModifierValuesMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_MoveMessage>(OnPlayerMoveMessageReceived);
     }
 
     void OnPlayerMoveMessageReceived(Player_MoveMessage message)
@@ -89,12 +89,12 @@ public class Player_MoveController : MonoBehaviour
             {
                 movement = Vector3.ProjectOnPlane(movement, groundNormal);
                 Debug.LogWarning("on slope");
-                GameBootstrap.MessageBus.Publish(new Player_OnSlopeMessage(true));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_OnSlopeMessage(true));
                 // _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Force);
             }
             else
             {
-                GameBootstrap.MessageBus.Publish(new Player_OnSlopeMessage(false));
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_OnSlopeMessage(false));
             }
         }
 

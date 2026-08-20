@@ -21,8 +21,6 @@ public class MessageBus
         }
 
         _handlers[messageType].Add(handler);
-
-        Debug.Log(handler + " sub");
     }
 
     public void Unsubscribe<T>(Action<T> handler)
@@ -33,8 +31,6 @@ public class MessageBus
             return;
 
         _handlers[messageType].Remove(handler);
-
-        Debug.Log(handler + " unsub");
     }
 
     public void Publish<T>(T message)

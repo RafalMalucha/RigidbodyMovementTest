@@ -19,18 +19,18 @@ public class Player_LookController : MonoBehaviour
 
     void OnEnable()
     {
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunLimitRotationMessage>(OnPlayerWallrunLimitRotationMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunLimitRotationMessage>(OnPlayerWallrunLimitRotationMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_WallrunLimitRotationMessage>(OnPlayerWallrunLimitRotationMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_LookMessage>(OnPlayerLookMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_WallrunLimitRotationMessage>(OnPlayerWallrunLimitRotationMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)

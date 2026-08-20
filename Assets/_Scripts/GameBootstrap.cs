@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class GameBootstrap
 {
-    public static MessageBus MessageBus { get; private set; }
+    public static MessageBus PlayerControllerMessageBus { get; private set; }
     public static PlayerControllersSettings PlayerControllersSettings { get; private set; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void CreateMessageBus()
     {
-        Debug.Log("init test");
-        MessageBus = new MessageBus();
+        PlayerControllerMessageBus = new MessageBus();
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

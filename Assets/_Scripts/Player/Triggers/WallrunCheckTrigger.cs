@@ -6,12 +6,12 @@ public class WallrunCheckTriger : MonoBehaviour
 
     private void OnEnable()
     {
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     private void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
@@ -41,7 +41,7 @@ public class WallrunCheckTriger : MonoBehaviour
     {
         if (collider.CompareTag("Wallrun"))
         {
-            GameBootstrap.MessageBus.Publish(new Player_WallrunExitMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunExitMessage());
         }
     }
 
@@ -55,14 +55,14 @@ public class WallrunCheckTriger : MonoBehaviour
         if (hitLeft.normal == new Vector3(0f, 0f, 0f))
         {
             Debug.Log(hitRight.normal);
-            GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitRight.normal));
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunEnterMessage(hitRight.normal));
         }
 
 
         if (hitRight.normal == new Vector3(0f, 0f, 0f))
         {
             Debug.Log(hitLeft.normal);
-            GameBootstrap.MessageBus.Publish(new Player_WallrunEnterMessage(hitLeft.normal));
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunEnterMessage(hitLeft.normal));
         }
     }
 }

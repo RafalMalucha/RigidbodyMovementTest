@@ -8,7 +8,7 @@ public class StateDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)

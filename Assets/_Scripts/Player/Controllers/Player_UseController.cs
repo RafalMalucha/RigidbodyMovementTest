@@ -12,12 +12,12 @@ public class Player_UseController : MonoBehaviour
 
     void OnEnable()
     {
-        GameBootstrap.MessageBus.Subscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_UseMessage>(OnPlayerUseMessageReceived);
     }
 
     void OnPlayerUseMessageReceived(Player_UseMessage message)
@@ -32,7 +32,7 @@ public class Player_UseController : MonoBehaviour
 
         if (Physics.Raycast(_useRay, out _raycastHit, _useDistance, interactableLayer))
         {
-            if (_raycastHit.collider)
+            if (_raycastHit.collider.CompareTag("Button"))
             {
                 Debug.Log(_raycastHit.collider.transform.name);
             }

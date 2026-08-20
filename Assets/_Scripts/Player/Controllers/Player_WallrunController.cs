@@ -15,18 +15,18 @@ public class Player_WallrunController : MonoBehaviour
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        GameBootstrap.MessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
-        GameBootstrap.MessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
     }
 
     void OnDisable()
     {
-        GameBootstrap.MessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
-        GameBootstrap.MessageBus.Unsubscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Unsubscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
     }
 
     void OnPlayerStateMessageReceived(Player_StateMessage message)
@@ -69,12 +69,12 @@ public class Player_WallrunController : MonoBehaviour
         if (Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection) > 120f)
         {
             _rigidbody.AddForce(-wallrunDirection * 500f, ForceMode.Impulse);
-            GameBootstrap.MessageBus.Publish(new Player_WallrunLimitRotationMessage(-wallrunDirection));
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunLimitRotationMessage(-wallrunDirection));
         }
         else
         {
             _rigidbody.AddForce(wallrunDirection * 500f, ForceMode.Impulse);
-            GameBootstrap.MessageBus.Publish(new Player_WallrunLimitRotationMessage(wallrunDirection));
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunLimitRotationMessage(wallrunDirection));
         }
     }
 

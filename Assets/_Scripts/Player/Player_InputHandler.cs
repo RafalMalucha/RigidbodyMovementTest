@@ -42,32 +42,32 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        GameBootstrap.MessageBus.Publish(new Player_LookMessage(_look.ReadValue<Vector2>()));
-        GameBootstrap.MessageBus.Publish(new Player_MoveMessage(_move.ReadValue<Vector2>()));
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_LookMessage(_look.ReadValue<Vector2>()));
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_MoveMessage(_move.ReadValue<Vector2>()));
 
         if (_attack.WasPressedThisFrame())
         {
-            GameBootstrap.MessageBus.Publish(new Player_AttackMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_AttackMessage());
         }
 
         if (_jump.WasPressedThisFrame())
         {
-            GameBootstrap.MessageBus.Publish(new Player_JumpMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_JumpMessage());
         }
 
         if (_dash.WasPressedThisFrame())
         {
-            GameBootstrap.MessageBus.Publish(new Player_DashMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_DashMessage());
         }
 
         if (_slide.WasPressedThisFrame())
         {
-            GameBootstrap.MessageBus.Publish(new Player_SlideMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_SlideMessage());
         }
 
         if (_use.WasPressedThisFrame())
         {
-            GameBootstrap.MessageBus.Publish(new Player_UseMessage());
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_UseMessage());
         }
     }
 }
