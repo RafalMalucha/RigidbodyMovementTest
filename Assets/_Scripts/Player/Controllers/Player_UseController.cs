@@ -32,9 +32,10 @@ public class Player_UseController : MonoBehaviour
 
         if (Physics.Raycast(_useRay, out _raycastHit, _useDistance, interactableLayer))
         {
-            if (_raycastHit.collider.CompareTag("Button"))
+            if (_raycastHit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                Debug.Log(_raycastHit.collider.transform.name);
+                Debug.Log(_raycastHit.collider.GetInstanceID());
+                interactable.Interact();
             }
         }
     }

@@ -30,6 +30,7 @@ public class Player_StateMachine : MonoBehaviour
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_RequestStateModifierChangeMessage_Debug>(OnPlayerRequestStateModifierChangeMessageReceived_Debug);
     }
 
     void OnPlayerIsGroundedMessageReceived(Player_IsGroundedMessage message)
@@ -78,6 +79,12 @@ public class Player_StateMachine : MonoBehaviour
     void OnPlayerWallrunExitMessageReceived(Player_WallrunExitMessage message)
     {
         DecideOnGroundedState();
+    }
+
+    void OnPlayerRequestStateModifierChangeMessageReceived_Debug(Player_RequestStateModifierChangeMessage_Debug message)
+    {
+        _currentModifier = message.Modifier;
+        SetNewStateModifier(_currentModifier);
     }
 
     private void DecideOnGroundedState()
