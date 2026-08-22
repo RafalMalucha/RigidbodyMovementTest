@@ -17,7 +17,7 @@ public class GameBootstrap
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void CreatePlayerControllersSettingsObject()
     {
-        PlayerControllersSettingsLoader loader = new PlayerControllersSettingsLoader();
-        PlayerControllersSettings = loader.LoadPlayerControllersSettings();
+        //PlayerControllersSettingsLoader loader = new PlayerControllersSettingsLoader();
+        //PlayerControllersSettings = loader.LoadPlayerControllersSettings();
     }
 }

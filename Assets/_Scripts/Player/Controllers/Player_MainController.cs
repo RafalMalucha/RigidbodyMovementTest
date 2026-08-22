@@ -19,17 +19,17 @@ public class Player_MainController : MonoBehaviour
 
     void Awake()
     {
-        foreach (PlayerControllerSettings setting in GameBootstrap.PlayerControllersSettings.controllersSettings)
-        {
-            Type controllerType = Type.GetType(setting.controllerName);
-            Component component = GetComponent(controllerType);
+        // foreach (PlayerControllerSettings setting in GameBootstrap.PlayerControllersSettings.controllersSettings)
+        // {
+        //     Type controllerType = Type.GetType(setting.controllerName);
+        //     Component component = GetComponent(controllerType);
 
-            if (component is Behaviour behaviour)
-            {
-                behaviour.enabled = setting.isActive;
-            }
+        //     if (component is Behaviour behaviour)
+        //     {
+        //         behaviour.enabled = setting.isActive;
+        //     }
 
-        }
+        // }
         _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_OnSlopeMessage>(OnPlayerOnSlopeMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);

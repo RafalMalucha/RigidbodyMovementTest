@@ -122,7 +122,6 @@ public class Player_StateMachine : MonoBehaviour
                 break;
             case Player_Modifier.Cracked:
                 GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Cracked));
-                Debug.Log("dupa");
                 break;
             case Player_Modifier.Slowed:
                 GameBootstrap.PlayerControllerMessageBus.Publish(new Player_StateModifierValuesMessage(_stateModifierValues_Slowed));
