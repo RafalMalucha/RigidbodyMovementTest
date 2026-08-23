@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class Crosshair : MonoBehaviour
 {
     [Header("Crosshair Customisation Parameters")]
-    [SerializeField] private Color _color = Color.white;
-    [SerializeField] private Color _outlineColor = Color.black;
+    [SerializeField] private Color32 _color = new Color(255, 255, 255, 255);
+    [SerializeField] private Color32 _outlineColor = new Color(0, 0, 0, 255);
     [SerializeField] private float _vSize;
     [SerializeField] private float _hSize;
     [SerializeField] private float _vGap;
@@ -38,6 +38,7 @@ public class Crosshair : MonoBehaviour
 
     private void DrawCrosshair()
     {
+        Debug.LogWarning(_color);
         SetOutline();
         ApplyColor();
         ApplyOutlineColor();
@@ -69,7 +70,7 @@ public class Crosshair : MonoBehaviour
         SetColor(_leftOutline.GetComponent<RawImage>(), _outlineColor);
     }
 
-    private void SetColor(RawImage image, Color color)
+    private void SetColor(RawImage image, Color32 color)
     {
         if (image != null)
             image.color = color;
@@ -232,13 +233,13 @@ public class Crosshair : MonoBehaviour
         DrawCrosshair();
     }
 
-    public void SetCrosshairColor(Color color)
+    public void SetCrosshairColor(Color32 color)
     {
         _color = color;
         DrawCrosshair();
     }
 
-    public void SetOutlineColor(Color color)
+    public void SetOutlineColor(Color32 color)
     {
         _outlineColor = color;
         DrawCrosshair();

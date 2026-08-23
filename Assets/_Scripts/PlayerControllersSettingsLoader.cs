@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerControllersSettingsLoader
 {
-    private readonly string _settingsPath = "Assets/playerControllersSettings.json";
+    private readonly string _settingsPath = "Assets/StreamingAssets/playerControllersSettings.json";
 
     public PlayerControllersSettings LoadPlayerControllersSettings()
     {
