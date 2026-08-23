@@ -231,4 +231,16 @@ public class Crosshair : MonoBehaviour
         _outline = !_outline;
         DrawCrosshair();
     }
+
+    public void SetCrosshairColor(Color color)
+    {
+        _color = color;
+        DrawCrosshair();
+    }
+
+    public void SetOutlineColor(Color color)
+    {
+        _outlineColor = color;
+        DrawCrosshair();
+    }
 }
