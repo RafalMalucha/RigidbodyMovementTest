@@ -66,7 +66,7 @@ public class Player_JumpController : MonoBehaviour
     {
         Debug.Log("player jump behavior");
 
-        if (_currentState == Player_State.Grounded)
+        if (_currentState == Player_State.Grounded || _currentState == Player_State.Sliding)
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
 
         if (_currentState == Player_State.Airborne && _currenlyAvailableAirborneJumps > 0)
