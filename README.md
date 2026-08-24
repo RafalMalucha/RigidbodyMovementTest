@@ -3,5 +3,5 @@
 ### communication between components runs on message bus
 ### basic state machine
 
-##### run / jump / slide / dash / wallrun
+##### run / jump / slide / dash / wallrun / monkey bar
 ##### state modifiers: normal / cracked / slowed / stunned
