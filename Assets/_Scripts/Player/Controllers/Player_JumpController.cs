@@ -71,6 +71,8 @@ public class Player_JumpController : MonoBehaviour
 
         if (_currentState == Player_State.Airborne && _currenlyAvailableAirborneJumps > 0)
         {
+            var tempVelocity = _rigidbody.linearVelocity;
+            _rigidbody.linearVelocity = new Vector3(tempVelocity.x, 0f, tempVelocity.z);
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _currenlyAvailableAirborneJumps -= 1;
         }
