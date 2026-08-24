@@ -53,6 +53,9 @@ public class Player_MoveController : MonoBehaviour
             case Player_State.WallRunning:
                 _stateMovePenalty = 0f;
                 break;
+            case Player_State.MonkeyBar:
+                _stateMovePenalty = 0f;
+                break;
             default:
                 _stateMovePenalty = 1f;
                 break;

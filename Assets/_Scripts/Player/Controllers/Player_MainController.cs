@@ -59,7 +59,7 @@ public class Player_MainController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(_currentState != Player_State.WallRunning)
+        if(_currentState != Player_State.WallRunning && _currentState != Player_State.MonkeyBar)
         {
             _rigidbody.AddForce(_playerGravity * Vector3.down, ForceMode.Force);
         }

@@ -35627,7 +35627,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -44390,7 +44390,7 @@ GameObject:
   - component: {fileID: 920525763}
   - component: {fileID: 920525762}
   - component: {fileID: 920525765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53017,6 +53017,7 @@ GameObject:
   - component: {fileID: 1097030240}
   - component: {fileID: 1097030231}
   - component: {fileID: 1097030230}
+  - component: {fileID: 1097030241}
   - component: {fileID: 1097030232}
   - component: {fileID: 1097030229}
   m_Layer: 0
@@ -53257,7 +53258,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -53281,6 +53282,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_WallrunController
   _rigidbody: {fileID: 0}
   _maxWallrunDuration: 1
+--- !u!114 &1097030241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097030225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf63cd8b1ee7014f88e18d43717ad4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_MonkeyBarController
+  _rigidbody: {fileID: 0}
+  _monkeyBarSwingDuration: 0.25
 --- !u!1 &1101302577
 GameObject:
   m_ObjectHideFlags: 0
