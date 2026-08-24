@@ -4,5 +4,6 @@ public enum Player_State
     Airborne,
     Sliding,
     Dashing,
-    WallRunning
+    WallRunning,
+    MonkeyBar
 }

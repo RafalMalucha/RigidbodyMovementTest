@@ -88,7 +88,6 @@ public class Player_MoveController : MonoBehaviour
             if (slopeAngle <= 46f && slopeAngle >= 5f)
             {
                 movement = Vector3.ProjectOnPlane(movement, groundNormal);
-                Debug.LogWarning("on slope");
                 GameBootstrap.PlayerControllerMessageBus.Publish(new Player_OnSlopeMessage(true));
                 // _rigidbody.AddForce(new Vector3(0f, -_rigidbody.linearVelocity.y, 0f), ForceMode.Force);
             }

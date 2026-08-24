@@ -30,6 +30,8 @@ public class Player_StateMachine : MonoBehaviour
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideFinishMessage>(OnPlayerSlideFinishMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunEnterMessage>(OnPlayerWallrunEnterMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MonkeyBarEnterMessage>(OnPlayerMonkeyBarEnterMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MonkeyBarExitMessage>(OnPlayerMonkeyBarExitMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_RequestStateModifierChangeMessage_Debug>(OnPlayerRequestStateModifierChangeMessageReceived_Debug);
     }
 
@@ -77,6 +79,19 @@ public class Player_StateMachine : MonoBehaviour
     }
 
     void OnPlayerWallrunExitMessageReceived(Player_WallrunExitMessage message)
+    {
+        DecideOnGroundedState();
+    }
+
+    void OnPlayerMonkeyBarEnterMessageReceived(Player_MonkeyBarEnterMessage message)
+    {
+        if (_currentState == Player_State.Airborne || _currentState == Player_State.Dashing)
+        {
+            SetNewState(Player_State.MonkeyBar);
+        }
+    }
+
+    void OnPlayerMonkeyBarExitMessageReceived(Player_MonkeyBarExitMessage message)
     {
         DecideOnGroundedState();
     }
