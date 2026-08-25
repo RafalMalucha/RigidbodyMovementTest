@@ -66,14 +66,14 @@ public class Player_WallrunController : MonoBehaviour
         Debug.Log(wallrunDirection);
         Debug.Log(Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection));
 
-        if (Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection) > 120f)
+        if (Vector3.Angle(_rigidbody.linearVelocity, wallrunDirection) > 170f)
         {
-            _rigidbody.AddForce(-wallrunDirection * 500f, ForceMode.Impulse);
+            _rigidbody.AddForce(-wallrunDirection * 750f, ForceMode.Force);
             GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunLimitRotationMessage(-wallrunDirection));
         }
         else
         {
-            _rigidbody.AddForce(wallrunDirection * 500f, ForceMode.Impulse);
+            _rigidbody.AddForce(wallrunDirection * 750f, ForceMode.Force);
             GameBootstrap.PlayerControllerMessageBus.Publish(new Player_WallrunLimitRotationMessage(wallrunDirection));
         }
     }

@@ -77,7 +77,7 @@ public class Player_MonkeyBarController : MonoBehaviour
 
         transform.position = end;
         GameBootstrap.PlayerControllerMessageBus.Publish(new Player_MonkeyBarExitMessage());
-        _rigidbody.AddForce(Vector3.up * 75f, ForceMode.Impulse);
-        _rigidbody.AddForce(transform.rotation * Vector3.forward * 150f, ForceMode.Impulse);
+        _rigidbody.AddForce(Vector3.up * 90f, ForceMode.Impulse);
+        _rigidbody.AddForce(transform.rotation * Vector3.forward * 175f, ForceMode.Impulse);
     }
 }
