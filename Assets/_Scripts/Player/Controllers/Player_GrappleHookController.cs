@@ -1,10 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Player_GrappleHookController : MonoBehaviour
 {
     [Header("Player_GrappleHookController Setup")]
+    [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Camera _playerCamera;
     [SerializeField] private float _grappleDistance;
+    [SerializeField] private float _grappleSpeed;
     [SerializeField] private LayerMask interactableLayer;
 
     private Ray _grappleRay;
@@ -12,6 +16,7 @@ public class Player_GrappleHookController : MonoBehaviour
 
     void OnEnable()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_GrappleHookMessage>(OnPlayerGrappleHookMessageReceived);
     }
 
@@ -34,9 +39,37 @@ public class Player_GrappleHookController : MonoBehaviour
         {
             if (_raycastHit.collider.CompareTag("Grappable"))
             {
-                //start grapple coroutine
+                GameBootstrap.PlayerControllerMessageBus.Publish(new Player_GrappleEnterMessage());
+                StartCoroutine(GrappleCoroutine(_raycastHit.collider.transform.position));
             }
         }
+    }
+
+    IEnumerator GrappleCoroutine(Vector3 grappleTargetPoint)
+    {
+        Vector3 grappleStartPoint = transform.position;
+        float grappleDuration = Vector3.Distance(grappleStartPoint, grappleTargetPoint) / _grappleSpeed;
+
+        float elapsed = 0f;
+
+        while (elapsed < grappleDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = Mathf.Clamp01(elapsed / grappleDuration);
+
+            transform.position = Vector3.Lerp(grappleStartPoint,grappleTargetPoint,t);
+
+            yield return null;
+        }
+
+        transform.position = grappleTargetPoint;
+
+        _rigidbody.AddForce(transform.forward * 1500f, ForceMode.Impulse);
+        _rigidbody.AddForce(transform.up * 150f, ForceMode.Impulse);
+
+        GameBootstrap.PlayerControllerMessageBus.Publish(new Player_GrappleExitMessage());
+        yield return null;
     }
 
     private void Update()

@@ -32,6 +32,8 @@ public class Player_StateMachine : MonoBehaviour
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_WallrunExitMessage>(OnPlayerWallrunExitMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MonkeyBarEnterMessage>(OnPlayerMonkeyBarEnterMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_MonkeyBarExitMessage>(OnPlayerMonkeyBarExitMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_GrappleEnterMessage>(OnPlayerGrappleEnterMessageReceived);
+        GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_GrappleExitMessage>(OnPlayerGrappleExitMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_RequestStateModifierChangeMessage_Debug>(OnPlayerRequestStateModifierChangeMessageReceived_Debug);
     }
 
@@ -43,6 +45,9 @@ public class Player_StateMachine : MonoBehaviour
             return;
 
         if (_currentState == Player_State.Dashing)
+            return;
+
+        if (_currentState == Player_State.Grapple)
             return;
 
         if (_currentState != Player_State.Grounded || _currentState != Player_State.Airborne)
@@ -92,6 +97,16 @@ public class Player_StateMachine : MonoBehaviour
     }
 
     void OnPlayerMonkeyBarExitMessageReceived(Player_MonkeyBarExitMessage message)
+    {
+        DecideOnGroundedState();
+    }
+
+    void OnPlayerGrappleEnterMessageReceived(Player_GrappleEnterMessage message)
+    {
+        SetNewState(Player_State.Grapple);
+    }
+
+    void OnPlayerGrappleExitMessageReceived(Player_GrappleExitMessage message)
     {
         DecideOnGroundedState();
     }

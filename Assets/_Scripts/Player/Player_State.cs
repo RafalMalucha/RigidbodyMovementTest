@@ -5,5 +5,6 @@ public enum Player_State
     Sliding,
     Dashing,
     WallRunning,
-    MonkeyBar
+    MonkeyBar,
+    Grapple
 }
