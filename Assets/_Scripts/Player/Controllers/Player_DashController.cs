@@ -107,7 +107,10 @@ public class Player_DashController : MonoBehaviour
         }
 
         yield return new WaitForFixedUpdate();
-        Debug.Log("end dash");
+
+        Vector3 tempVelocityHelper = _rigidbody.linearVelocity;
+        _rigidbody.linearVelocity = new Vector3(tempVelocityHelper.x, 0f, tempVelocityHelper.z);
+
         GameBootstrap.PlayerControllerMessageBus.Publish(new Player_DashFinishMessage());
         yield return new WaitForFixedUpdate();
     }

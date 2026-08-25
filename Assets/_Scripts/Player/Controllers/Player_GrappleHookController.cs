@@ -65,8 +65,12 @@ public class Player_GrappleHookController : MonoBehaviour
 
         transform.position = grappleTargetPoint;
 
+        Vector3 tempVelocityHelper = _rigidbody.linearVelocity;
+
+        _rigidbody.linearVelocity = new Vector3(tempVelocityHelper.x, 0f, tempVelocityHelper.z);
         _rigidbody.AddForce(transform.forward * 1500f, ForceMode.Impulse);
-        _rigidbody.AddForce(transform.up * 150f, ForceMode.Impulse);
+        _rigidbody.AddForce(_playerCamera.transform.forward * 150f, ForceMode.Impulse);
+        _rigidbody.AddForce(transform.up * 1f, ForceMode.Impulse);
 
         GameBootstrap.PlayerControllerMessageBus.Publish(new Player_GrappleExitMessage());
         yield return null;
