@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _slide;
     private InputAction _use;
     private InputAction _grappleHook;
+    private InputAction _melee;
 
     private void OnEnable()
     {
@@ -40,6 +41,7 @@ public class PlayerInputHandler : MonoBehaviour
         _slide = InputSystem.actions.FindAction("Slide");
         _use = InputSystem.actions.FindAction("Use");
         _grappleHook = InputSystem.actions.FindAction("GrappleHook");
+        _melee = InputSystem.actions.FindAction("Melee");
     }
 
     private void Update()
@@ -75,6 +77,11 @@ public class PlayerInputHandler : MonoBehaviour
         if (_grappleHook.WasPressedThisFrame())
         {
             GameBootstrap.PlayerControllerMessageBus.Publish(new Player_GrappleHookMessage());
+        }
+
+        if (_melee.WasPressedThisFrame())
+        {
+            GameBootstrap.PlayerControllerMessageBus.Publish(new Player_MeleeMessage());
         }
     }
 }
