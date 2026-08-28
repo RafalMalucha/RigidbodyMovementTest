@@ -27,6 +27,6 @@ public class StateDisplay : MonoBehaviour
     void Update()
     {
         PlayerStateText.text = $"State: {_playerState}";
-        PlayerStateModifierText.text = $"State: {_playerModifier}";
+        PlayerStateModifierText.text = $"Modifier: {_playerModifier}";
     }
 }
