@@ -4,15 +4,28 @@ public class Entity_HealthController : MonoBehaviour
 {
     [Header("Entity_HealthController Setup")]
     [SerializeField] private int _maxBaseHealth;
-    [SerializeField] private int _maxOverheal;
-    [SerializeField] private int _overhealDecayRate;
 
     private int _currentHealth;
-    private int _currentOverheal;
+
+    private void OnEnable()
+    {
+        _currentHealth = _maxBaseHealth;
+    }
 
     private void RestoreHealth(int totalHealAmount)
     {
-        int baseHealthRestoreAmount = _maxBaseHealth - _currentHealth;
+        _currentHealth += totalHealAmount;
+
+        if (_currentHealth > _maxBaseHealth)
+            _currentHealth = _maxBaseHealth;
+    }
+
+    private void ApplyDamage(int totalDamageAmount)
+    {
+        _currentHealth -= totalDamageAmount;
+
+        if (_currentHealth <= 0)
+            EntityDie();
     }
 
     private void EntityDie()
@@ -20,13 +33,13 @@ public class Entity_HealthController : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    private void Overheal(int overhealAmount)
-    {
-        //_currentOverheal
-    }
-
     private void FixedUpdate()
     {
         Debug.Log(_currentHealth);
+    }
+
+    public int GetCurrentHealth()
+    {
+        return _currentHealth;
     }
 }

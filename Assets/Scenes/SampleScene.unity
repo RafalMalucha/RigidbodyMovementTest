@@ -75357,6 +75357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1946398364}
   - component: {fileID: 1946398363}
+  - component: {fileID: 1946398365}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -75407,6 +75408,21 @@ Transform:
   - {fileID: 1051146339}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946398365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946398362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac747386e61559418be94e0eb911b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_HealthController
+  _maxBaseHealth: 100
+  _maxOverheal: 0
+  _overhealDecayRate: 0
 --- !u!1 &1948924407
 GameObject:
   m_ObjectHideFlags: 0
@@ -81474,7 +81490,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2360867685043361209, guid: fb9d9ad1bcbbd844eae98d829277ebd1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2360867685043361209, guid: fb9d9ad1bcbbd844eae98d829277ebd1, type: 3}
       propertyPath: m_LocalPosition.y
