@@ -5,17 +5,33 @@ using UnityEngine.Events;
 public class Enemy_HealthController : MonoBehaviour
 {
     [Header("Entity_HealthController Setup")]
+    [Space]
     [SerializeField] private int _maxBaseHealth;
+    [SerializeField] private float _collisionDamageCooldown;
+
+    [Header("Events Setup")]
+    [Space]
     [SerializeField] private UnityEvent<int> _updateHealthUI;
 
     private Rigidbody _rigidbody;
+    private BoxCollider _boxCollider;
     private int _currentHealth;
+
+    private float _lastFrameLinearVelocityMagnitude;
+    private float _lastWallHitTime;
 
     private void OnEnable()
     {
+        _lastWallHitTime = Time.time;
         _rigidbody = GetComponent<Rigidbody>();
+        _boxCollider = GetComponentInChildren<BoxCollider>();
         _currentHealth = _maxBaseHealth;
         _updateHealthUI?.Invoke(_currentHealth);
+    }
+
+    private void LateUpdate()
+    {
+        _lastFrameLinearVelocityMagnitude = _rigidbody.linearVelocity.magnitude;
     }
 
     private void RestoreHealth(int totalHealAmount)
@@ -41,6 +57,21 @@ public class Enemy_HealthController : MonoBehaviour
     private void EntityDie()
     {
         Destroy(transform.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer != 6)
+            return;
+
+        if (_lastFrameLinearVelocityMagnitude < 10f)
+            return;
+
+        if (_lastWallHitTime > Time.time + _collisionDamageCooldown)
+            return;
+
+        _lastWallHitTime = Time.time;
+        ApplyDamage((int)(_lastFrameLinearVelocityMagnitude / 5f));
     }
 
     public int GetCurrentHealth()
