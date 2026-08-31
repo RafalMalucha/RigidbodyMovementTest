@@ -249,7 +249,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUI_DamagePopup
   _damagePopupPrefab: {fileID: 5055573109755041540, guid: bed66f964aff87042b7f894fa02ccfd1, type: 3}
-  _damagePopupLifetime: 2
+  _damagePopupLifetime: 1
+  _minSize: 0.25
+  _maxSize: 1
 --- !u!1 &5741642838908424123
 GameObject:
   m_ObjectHideFlags: 0
