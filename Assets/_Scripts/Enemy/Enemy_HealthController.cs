@@ -12,6 +12,7 @@ public class Enemy_HealthController : MonoBehaviour
     [Header("Events Setup")]
     [Space]
     [SerializeField] private UnityEvent<int> _updateHealthUI;
+    [SerializeField] private UnityEvent<int> _damageEffectUI;
 
     private Rigidbody _rigidbody;
     private BoxCollider _boxCollider;
@@ -47,6 +48,7 @@ public class Enemy_HealthController : MonoBehaviour
     private void ApplyDamage(int totalDamageAmount)
     {
         _currentHealth -= totalDamageAmount;
+        _damageEffectUI?.Invoke(totalDamageAmount);
 
         if (_currentHealth <= 0)
             EntityDie();

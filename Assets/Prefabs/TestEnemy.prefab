@@ -92,6 +92,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _damageEffectUI:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5883022269981281298}
+        m_TargetAssemblyTypeName: EnemyUI_DamagePopup, Assembly-CSharp
+        m_MethodName: PlayDamagePopup
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8472520935174572247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +133,7 @@ GameObject:
   - component: {fileID: 8802771077786186948}
   - component: {fileID: 2959120160358749088}
   - component: {fileID: 2464071779292808620}
+  - component: {fileID: 5883022269981281298}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -220,6 +236,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858fdf98bfa48dc499a2e3be44ad083a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUI_Billboard
+--- !u!114 &5883022269981281298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124835336227896377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6f389733cb9db49be146fa56e347bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUI_DamagePopup
+  _damagePopupPrefab: {fileID: 5055573109755041540, guid: bed66f964aff87042b7f894fa02ccfd1, type: 3}
+  _damagePopupLifetime: 2
 --- !u!1 &5741642838908424123
 GameObject:
   m_ObjectHideFlags: 0

@@ -81424,7 +81424,7 @@ PrefabInstance:
       objectReference: {fileID: 4299351692567842595}
     - target: {fileID: 1959470380918860859, guid: f80de725a2f6af1419adc56f2341541a, type: 3}
       propertyPath: _meleeHitForce
-      value: 5000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1959470380918860859, guid: f80de725a2f6af1419adc56f2341541a, type: 3}
       propertyPath: _meleeHitDamage

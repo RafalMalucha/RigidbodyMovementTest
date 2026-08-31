@@ -4,6 +4,7 @@ using TMPro;
 public class EnemyUI_MainController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _enemyHealthText;
+
     private int _currentEnemyHealth;
 
     void Update()
