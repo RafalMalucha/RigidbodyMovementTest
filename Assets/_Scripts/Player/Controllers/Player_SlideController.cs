@@ -46,12 +46,9 @@ public class Player_SlideController : MonoBehaviour
     private bool _isSliding = false;
     private Player_State _currentState;
 
-    private GameObject _weaponHolderGameObject;
-
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _weaponHolderGameObject = GameObject.Find("WeaponHolder");
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_SlideMessage>(OnPlayerSlideMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_StateMessage>(OnPlayerStateMessageReceived);
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_JumpMessage>(OnPlayerJumpMessageReceived);
@@ -115,7 +112,6 @@ public class Player_SlideController : MonoBehaviour
         {
             _rigidbody.AddForce(transform.rotation * Vector3.forward * 50f, ForceMode.Impulse);
         }
-        Debug.Log("player start slide behavior");
     }
 
     void StopSlide()
@@ -130,6 +126,5 @@ public class Player_SlideController : MonoBehaviour
 
         _pMaterial.staticFriction = _pMaterialNormalValues.x;
         _pMaterial.dynamicFriction = _pMaterialNormalValues.y;
-        Debug.Log("player stop slide behavior");
     }
 }
