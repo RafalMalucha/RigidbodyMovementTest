@@ -90,6 +90,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3120714955936568761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7499530507007266286}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7499530507007266286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3120714955936568761}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.00000046193594, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3317730367264414553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3744309823775450841
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +421,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7499530507007266286}
   m_Father: {fileID: 7325181701249684602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &8119625515697282239
@@ -878,7 +910,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bc6a7d995d8654d96e8473e30619e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_MeleeController
-  _test: 0
+  _playerCamera: {fileID: 0}
+  _hittableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _meleeBoxcastHalfExtents: {x: 0, y: 0, z: 0}
+  _meleeRange: 0
+  _meleeHitDamage: 0
+  _meleeHitForce: 0
 --- !u!114 &3569144440259895612
 MonoBehaviour:
   m_ObjectHideFlags: 0

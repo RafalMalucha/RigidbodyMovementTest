@@ -45,7 +45,7 @@ public class EnemyUI_DamagePopup : MonoBehaviour
         while (elapsed < _damagePopupLifetime)
         {
             elapsed += Time.deltaTime;
-            
+
             float t = Mathf.Clamp01(elapsed / _damagePopupLifetime);
             float y = startY + velocityY * t - 0.5f * popupGravity * t * t;
             float x = sideDirection * sideDistance * t;
