@@ -88,9 +88,9 @@ public class Enemy_HealthController : MonoBehaviour
         ApplyDamage(hitDamage);
     }
 
-    public void EnemyOnRaycastHit(int hitDamage, Vector3 hitDirection)
+    public void EnemyOnRaycastHit(int hitDamage, Vector3 hitDirection, float hitPushbackForce)
     {
-        _rigidbody.AddForce(hitDirection * 50f, ForceMode.Impulse);
+        _rigidbody.AddForce(hitDirection * hitPushbackForce, ForceMode.Impulse);
 
         ApplyDamage(hitDamage);
     }
