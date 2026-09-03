@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff0b868ede0a36489a900b8e69315c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperShotgun
+  _shotEffect: {fileID: 0}
 --- !u!1 &5066906578643142529
 GameObject:
   m_ObjectHideFlags: 0

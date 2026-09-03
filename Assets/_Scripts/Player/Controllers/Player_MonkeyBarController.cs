@@ -55,7 +55,8 @@ public class Player_MonkeyBarController : MonoBehaviour
 
         Vector3 start = transform.position;
         Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 0.35f * barPosition.y * Vector3.down;
-        Vector3 end = start + transform.rotation * Vector3.forward * 4f + 0.05f * barPosition.y * Vector3.up;
+        //Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 1.0f * Vector3.down;
+        Vector3 end = start + transform.rotation * Vector3.forward * 4f;
 
         // Calculate control point so the curve passes exactly through mid at t = 0.5
         Vector3 control = 2f * mid - 0.5f * start - 0.5f * end;
@@ -77,7 +78,9 @@ public class Player_MonkeyBarController : MonoBehaviour
         }
 
         _rigidbody.MovePosition(end);
+
         GameBootstrap.PlayerControllerMessageBus.Publish(new Player_MonkeyBarExitMessage());
+
         _rigidbody.AddForce(Vector3.up * 90f, ForceMode.Impulse);
         _rigidbody.AddForce(transform.rotation * Vector3.forward * 175f, ForceMode.Impulse);
     }
