@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player_AttackController : MonoBehaviour
 {
     [Header("Player_AttackController Setup")]
-    [SerializeField] private bool _test;
+    [SerializeField] private GameObject _weaponHolder;
 
     void OnEnable()
     {
@@ -23,5 +23,6 @@ public class Player_AttackController : MonoBehaviour
     void Attack()
     {
         Debug.Log("player attack behavior");
+        _weaponHolder.GetComponentInChildren<IWeapon>().Attack();
     }
 }

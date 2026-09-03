@@ -32,7 +32,7 @@ public class Player_MonkeyBarController : MonoBehaviour
 
     void OnPlayerMonkeyBarEnterMessageReceived(Player_MonkeyBarEnterMessage message)
     {
-        MonkeyBar();
+        MonkeyBar(message.BarPosition);
     }
 
     void OnPlayerMonkeyBarExitMessageReceived(Player_MonkeyBarExitMessage message)
@@ -40,22 +40,22 @@ public class Player_MonkeyBarController : MonoBehaviour
 
     }
 
-    void MonkeyBar()
+    void MonkeyBar(Vector3 barPosition)
     {
         if (_currentState == Player_State.Airborne || _currentState == Player_State.MonkeyBar)
         {
             Debug.LogWarning("Start monkey bar");
-            StartCoroutine(MonkeyBarCoroutine());
+            StartCoroutine(MonkeyBarCoroutine(barPosition));
         }
     }
 
-    IEnumerator MonkeyBarCoroutine()
+    IEnumerator MonkeyBarCoroutine(Vector3 barPosition)
     {
         _rigidbody.linearVelocity = Vector3.zero;
 
         Vector3 start = transform.position;
-        Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + Vector3.down;
-        Vector3 end = start + transform.rotation * Vector3.forward * 4f;
+        Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 0.35f * barPosition.y * Vector3.down;
+        Vector3 end = start + transform.rotation * Vector3.forward * 4f + 0.05f * barPosition.y * Vector3.up;
 
         // Calculate control point so the curve passes exactly through mid at t = 0.5
         Vector3 control = 2f * mid - 0.5f * start - 0.5f * end;
@@ -69,13 +69,14 @@ public class Player_MonkeyBarController : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / _monkeyBarSwingDuration);
             float u = 1f - t;
 
-            Vector3 bezierCurve = u * u * start + 2f * u * t * control + t * t * end;
-            transform.position = bezierCurve;
+            Vector3 bezierCurvePosition = u * u * start + 2f * u * t * control + t * t * end;
+
+            _rigidbody.MovePosition(bezierCurvePosition);
 
             yield return null;
         }
 
-        transform.position = end;
+        _rigidbody.MovePosition(end);
         GameBootstrap.PlayerControllerMessageBus.Publish(new Player_MonkeyBarExitMessage());
         _rigidbody.AddForce(Vector3.up * 90f, ForceMode.Impulse);
         _rigidbody.AddForce(transform.rotation * Vector3.forward * 175f, ForceMode.Impulse);
