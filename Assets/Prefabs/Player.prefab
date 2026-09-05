@@ -810,6 +810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_HealthController
   _maxPlayerHealth: 125
+  _maxPlayerOverheal: 200
+  _ticksPerOverhealReduction: 50
 --- !u!114 &6848317592930325052
 MonoBehaviour:
   m_ObjectHideFlags: 0

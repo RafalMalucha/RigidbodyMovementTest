@@ -82624,14 +82624,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2736112828713151707, guid: f80de725a2f6af1419adc56f2341541a, type: 3}
-      propertyPath: _maxPlayerOverheal
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2736112828713151707, guid: f80de725a2f6af1419adc56f2341541a, type: 3}
-      propertyPath: _ticksPerOverhealReduction
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7325181701249684602, guid: f80de725a2f6af1419adc56f2341541a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000007390975

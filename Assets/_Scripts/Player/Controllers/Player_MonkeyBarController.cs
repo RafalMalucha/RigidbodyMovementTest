@@ -54,8 +54,8 @@ public class Player_MonkeyBarController : MonoBehaviour
         _rigidbody.linearVelocity = Vector3.zero;
 
         Vector3 start = transform.position;
-        Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 0.35f * barPosition.y * Vector3.down;
-        //Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 1.0f * Vector3.down;
+        //Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 0.35f * barPosition.y * Vector3.down;
+        Vector3 mid = start + transform.rotation * Vector3.forward * 1.5f + 1.0f * Vector3.down;
         Vector3 end = start + transform.rotation * Vector3.forward * 4f;
 
         // Calculate control point so the curve passes exactly through mid at t = 0.5
