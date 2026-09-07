@@ -11,12 +11,18 @@ public class Player_GrappleHookController : MonoBehaviour
     [SerializeField] private float _grappleSpeed;
     [SerializeField] private LayerMask interactableLayer;
 
+    [Header("Player_GrappleHook Visuals Setup")]
+    [SerializeField] private GameObject _grappleHookTip;
+    [SerializeField] private LineRenderer _lineRenderer;
+
+
     private Ray _grappleRay;
     private RaycastHit _raycastHit;
 
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _lineRenderer.enabled = false;
         GameBootstrap.PlayerControllerMessageBus.Subscribe<Player_GrappleHookMessage>(OnPlayerGrappleHookMessageReceived);
     }
 
@@ -47,6 +53,11 @@ public class Player_GrappleHookController : MonoBehaviour
 
     IEnumerator GrappleCoroutine(Vector3 grappleTargetPoint)
     {
+        _lineRenderer.enabled = true;
+
+        _lineRenderer.SetPosition(0, _grappleHookTip.transform.position);
+        _lineRenderer.SetPosition(1, grappleTargetPoint);
+
         Vector3 grappleStartPoint = transform.position;
         float grappleDuration = Vector3.Distance(grappleStartPoint, grappleTargetPoint) / _grappleSpeed;
 
@@ -58,7 +69,8 @@ public class Player_GrappleHookController : MonoBehaviour
 
             float t = Mathf.Clamp01(elapsed / grappleDuration);
 
-            transform.position = Vector3.Lerp(grappleStartPoint,grappleTargetPoint,t);
+            transform.position = Vector3.Lerp(grappleStartPoint, grappleTargetPoint, t);
+            _lineRenderer.SetPosition(0, _grappleHookTip.transform.position);
 
             yield return null;
         }
@@ -66,6 +78,8 @@ public class Player_GrappleHookController : MonoBehaviour
         transform.position = grappleTargetPoint;
 
         Vector3 tempVelocityHelper = _rigidbody.linearVelocity;
+
+        _lineRenderer.enabled = false;
 
         _rigidbody.linearVelocity = new Vector3(tempVelocityHelper.x, 0f, tempVelocityHelper.z);
         _rigidbody.AddForce(transform.forward * 1500f, ForceMode.Impulse);

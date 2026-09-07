@@ -54,7 +54,16 @@ public class SuperShotgun : MonoBehaviour, IWeapon
             {
                 if (_pelletHit.collider.GetComponentInParent<Enemy_HealthController>() is Enemy_HealthController enemy)
                 {
-                    enemy.EnemyOnRaycastHit(_singlePelletDamage, _pelletRay.direction, _enemyPushbackForce);
+                    float randomCritRoll = Random.Range(0.0f, 1.0f);
+
+                    if (_critChance > randomCritRoll)
+                    {
+                        enemy.EnemyOnRaycastHit((int)(_singlePelletDamage * _critDamageModifier), _pelletRay.direction, _enemyPushbackForce);
+                    }
+                    else
+                    {
+                        enemy.EnemyOnRaycastHit(_singlePelletDamage, _pelletRay.direction, _enemyPushbackForce);
+                    }
                 }
             }
 
