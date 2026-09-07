@@ -6,7 +6,7 @@ public class DoorButton : MonoBehaviour, IInteractable
     [SerializeField] private UnityEvent _openDoor;
     [SerializeField] private UnityEvent _closeDoor;
 
-    private bool _doorOpen = false;
+    private bool _doorOpen = true;
 
     public void Interact()
     {

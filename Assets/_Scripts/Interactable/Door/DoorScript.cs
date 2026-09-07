@@ -19,7 +19,7 @@ public class DoorScript : MonoBehaviour
     [SerializeField] private Vector3 _rightRotationClosed;
 
 
-    private bool _isOpen = false;
+    private bool _isOpen;
 
     private Quaternion _leftOpenRotationQuaternion;
     private Quaternion _leftClosedRotationQuaternion;
