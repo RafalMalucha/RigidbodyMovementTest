@@ -7,6 +7,7 @@ TagManager:
   - Wallrun
   - Button
   - Grappable
+  - EnemyBody
   layers:
   - Default
   - TransparentFX

@@ -53,7 +53,10 @@ public class Player_MeleeController : MonoBehaviour
             if (hit.collider.GetComponentInParent<Enemy_HealthController>() is Enemy_HealthController enemy)
             {
                 Debug.Log(hit.collider.name);
-                enemy.EnemyOnMeleeHit(_meleeHitDamage, _meleeHitForce, _playerCamera.transform.forward);
+                if (hit.collider.CompareTag("EnemyBody"))
+                {
+                    enemy.EnemyOnMeleeHit(_meleeHitDamage, _meleeHitForce, _playerCamera.transform.forward);
+                }
             }
         }
     }
