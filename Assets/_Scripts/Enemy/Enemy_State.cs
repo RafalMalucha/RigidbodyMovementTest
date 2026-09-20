@@ -4,5 +4,6 @@ public enum Enemy_State
     Stun,
     Patrol,
     Pursuit,
-    Attack
+    Attack,
+    Melee
 }

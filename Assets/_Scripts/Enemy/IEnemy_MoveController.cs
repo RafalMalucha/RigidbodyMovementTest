@@ -1,4 +1,15 @@
+using System.Collections;
+using UnityEngine;
+
 public interface IEnemy_MoveController
 {
-    void Move();
+    IEnumerator Move();
+
+    Enemy_State GetNextState();
+
+    Vector3 GetSafeSpot();
+    Vector3 GetAttackSpot();
+
+    bool CanSeePlayer();
+    Vector3 GetPlayerPosition();
 }
