@@ -2,22 +2,28 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Fodder_MoveController : MonoBehaviour, IEnemy_MoveController
 {
     [SerializeField] private float _moveSpeed = 10f;
     [SerializeField] private float _viewRange;
+    [SerializeField] private SphereCollider _perceptionSphere;
+    [SerializeField] private GameObject _testTargetDestination;
 
-    private Transform _currentDestination;
+    private Vector3 _currentDestination;
     private Enemy_State _currentEnemyState;
+    private NavMeshAgent _navMeshAgent;
 
     private void Start()
     {
         _currentEnemyState = GetNextState();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _currentDestination = GetAttackSpot();
     }
 
     private void FixedUpdate()
     {
-
+        _navMeshAgent.destination = _testTargetDestination.transform.position;
     }
 
     public Enemy_State GetNextState()
