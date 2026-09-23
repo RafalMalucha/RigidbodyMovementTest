@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameBootstrap
 {
     public static MessageBus PlayerControllerMessageBus { get; private set; }
+    public static MessageBus PlayerUIMessageBus { get; private set; }
     public static MessageBus InteractableObjectsMessageBus { get; private set; }
     public static PlayerControllersSettings PlayerControllersSettings { get; private set; }
 
@@ -11,6 +12,7 @@ public class GameBootstrap
     static void CreateMessageBuses()
     {
         PlayerControllerMessageBus = new MessageBus();
+        PlayerUIMessageBus = new MessageBus();
         InteractableObjectsMessageBus = new MessageBus();
     }
 
