@@ -881,7 +881,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7523582961518499148}
-  - component: {fileID: 3236065463211838033}
   m_Layer: 5
   m_Name: PlayerAmmo_UI
   m_TagString: Untagged
@@ -910,20 +909,6 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: -450}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3236065463211838033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2612491753313124705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16447c765f40094f9e1818e7b02a0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthDisplay
-  PlayerHealthText: {fileID: 2456285176323383856}
-  PlayerOverhealText: {fileID: 0}
 --- !u!1 &2695194955304850313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1378,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5594486113077149173}
-  - component: {fileID: 5743181053193960587}
   m_Layer: 5
   m_Name: TaskTracker_UI
   m_TagString: Untagged
@@ -1424,20 +1408,6 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: 250}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5743181053193960587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3538709935372157988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16447c765f40094f9e1818e7b02a0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthDisplay
-  PlayerHealthText: {fileID: 5989742672786851024}
-  PlayerOverhealText: {fileID: 0}
 --- !u!1 &3693295008847649079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,7 +1452,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5034630630312144609}
-  - component: {fileID: 5891467430126210587}
   m_Layer: 5
   m_Name: PlayerUpgrades_UI
   m_TagString: Untagged
@@ -1513,20 +1482,6 @@ RectTransform:
   m_AnchoredPosition: {x: -700, y: 350}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5891467430126210587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3704976064929139465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16447c765f40094f9e1818e7b02a0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthDisplay
-  PlayerHealthText: {fileID: 4575474368812266132}
-  PlayerOverhealText: {fileID: 0}
 --- !u!1 &3722005676042030376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1772,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 496532020089964904}
-  - component: {fileID: 2717542817715554409}
   m_Layer: 5
   m_Name: PlayerCurrency_UI
   m_TagString: Untagged
@@ -1846,20 +1800,6 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: 450}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2717542817715554409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4721525185349787411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16447c765f40094f9e1818e7b02a0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthDisplay
-  PlayerHealthText: {fileID: 7304108386012318765}
-  PlayerOverhealText: {fileID: 0}
 --- !u!1 &4743073597505078165
 GameObject:
   m_ObjectHideFlags: 0
