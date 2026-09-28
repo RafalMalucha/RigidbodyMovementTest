@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class QuestTracker
+public class QuestTracker : MonoBehaviour
 {
     // active quests
 }

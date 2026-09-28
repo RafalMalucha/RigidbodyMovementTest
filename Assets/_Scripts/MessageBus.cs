@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MessageBus
 {
-    private Dictionary<Type, List<Delegate>> _handlers = new();
+    private readonly Dictionary<Type, List<Delegate>> _handlers = new();
 
     public MessageBus()
     {
@@ -13,36 +13,56 @@ public class MessageBus
 
     public void Subscribe<T>(Action<T> handler)
     {
+        if (handler == null) return;
+
         Type messageType = typeof(T);
 
-        if (!_handlers.ContainsKey(messageType))
+        if (!_handlers.TryGetValue(messageType, out var list))
         {
-            _handlers.Add(messageType, new List<Delegate>());
+            list = new List<Delegate>();
+            _handlers[messageType] = list;
         }
 
-        _handlers[messageType].Add(handler);
+        if (!list.Contains(handler))
+        {
+            list.Add(handler);
+        }
     }
 
     public void Unsubscribe<T>(Action<T> handler)
     {
+        if (handler == null) return;
+
         Type messageType = typeof(T);
 
-        if (!_handlers.ContainsKey(messageType))
-            return;
-
-        _handlers[messageType].Remove(handler);
+        if (_handlers.TryGetValue(messageType, out var list))
+        {
+            list.Remove(handler);
+            if (list.Count == 0)
+            {
+                _handlers.Remove(messageType);
+            }
+        }
     }
 
     public void Publish<T>(T message)
     {
         Type messageType = typeof(T);
 
-        if (!_handlers.ContainsKey(messageType))
+        if (!_handlers.TryGetValue(messageType, out var list) || list.Count == 0)
             return;
 
-        foreach (Delegate handler in _handlers[messageType])
+        for (int i = list.Count - 1; i >= 0; i--)
         {
-            ((Action<T>)handler)(message);
+            if (i < list.Count && list[i] is Action<T> action)
+            {
+                action.Invoke(message);
+            }
         }
+    }
+
+    public void Clear()
+    {
+        _handlers.Clear();
     }
 }
